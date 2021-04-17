@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# ----------------------------------------------------------------------------- #
+# This stage includes all steps which should take place after mounting the new 
+# system's partitions to their intended mount points, and which should take
+# place before chrooting into the new system.
+# ----------------------------------------------------------------------------- #
+# @file    asap_stage-2
+# @version 1.0
+# @author  cybork
+# @email   
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+##### source the necessary libraries
+libraries=(
+        "$SAPLIB_BASH"
+        "$ASAP_CONFIG"
+        "$ASAP_FUNCTIONS"
+)
+for lib in "${libraries[@]}"; do
+        source $lib
+        if [ "$?" -ne 0 ]; then
+                echo "[EXCEPTION] Failed to source $lib."
+                exit 1
+        fi
+done
+
+################################# BEGIN SCRIPT ##################################
+# TODO improve message and implement UI for package selection
+# TODO refactor asap init on /mnt into its own stage2 script
+# TODO implement /etc/skel
+
+warning_message "Stage 2 involves pacstrapping the system!"
+info_message "This means, that the package lists referenced in '$ASAP_SCRIPTS_DIR/stage2/2-02_generate-pkglist.sh'"
+info_message "get parsed, and the packages present in those packagelists are installed"
+info_message "on the new system. Make sure that you have selected the right packagelists for your"
+info_message "desired installation before continuing!"
+
+prompt_yes_or_no "Would you like to proceed with running stage 2?"
+if [ "$?" -ne 0 ]; then
+        exit 0
+fi
+
+run_stage 2
+if [ "$?" -ne 0 ]; then
+        exit 1
+fi
+
+# create sapling working directory on /mnt/
+debug_message "Creating future asap working directory at /mnt$ASAP_WORKING_DIR"
+mkdir -p "/mnt$ASAP_WORKING_DIR"
+if [ "$?" -ne 0 ]; then
+        exception_message "Failed to create sapling working directory on the new system!"
+        warning_message "Aborting..."
+        exit 1
+fi
+# copy the existing checkpointfile to /mnt/
+debug_message "Copying checkpoint file to /mnt$ASAP_CHECKPOINTFILE"
+cp "$ASAP_CHECKPOINTFILE" "/mnt$ASAP_CHECKPOINTFILE"
+if [ "$?" -ne 0 ]; then
+        exception_message "Failed to copy checkpointfile to new system!"
+        warning_message "Aborting..."
+        exit 1
+fi
+
+echo ""
+warning_message "Now you must chroot into your newly installed system to finish the setup."
+info_message "Run '$(color black white)arch-chroot /mnt$(color)' to chroot. Then, continue the setup by runnning '$(color black white)asap_stage-3$(color)'."

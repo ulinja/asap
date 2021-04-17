@@ -1,0 +1,47 @@
+  ___________________________________________________________________   
+/                                                                     \ 
+|                               ......                                 |
+|                            .':oddlc:;'.                              |
+|                               .,ldxoc::,.                            |
+|                                  .,ldl::,.                           |
+|                                     .;c:c,.                          |
+|                                      'ldddoc,....,;:ccc:,.           |
+|                                    .cxxxxkkkkkd;.,:codddxxl.         |
+|                                   .lxxkkkkkkxd:     .';:cclc'        |
+|                                   ,xxxxxxxdo;..                      |
+|                                   ;ddddoc,.'cl:;,'..                 |
+|                                   .;,'.....,lxocccc:,.               |
+|                                       .;c::lxkdlllcccc.              |
+|                                      'cc,.  ,occlllccoc.             |
+|                                      ';.    .:..cxdolol.             |
+|                        ___                 .;. .:dxooc.              |
+|      _________ _____  / (_)___  ____ _     .:.   .oxo'               |
+|     / ___/ __ `/ __ \/ / / __ \/ __ `/     .:.    .;,                |
+|    (__  ) /_/ / /_/ / / / / / / /_/ /      .:.                       |
+|   /____/\__,_/ .___/_/_/_/ /_/\__, /       .:.                       |
+|             /_/              /____/        .:.                       |
+|                                            .;.                       |
+|                                      ......';,.....                  |
+|                                  ..',;::::::;;:::::;'...             |
+|                                                                      |
+| WELCOME TO ASAP!                                                     |
+|                                                                      |
+| ASAP is the installation suite for Arch Linux Sapling: a custom,     |
+| minimal out-of-the-box Arch Linux configuration.                     |
+| ASAP runs in three stages. Progress is saved at each step, even      |
+| within a stage, so if something goes wrong you can fix the error and |
+| simply rerun the stage. Steps that were already completed            |
+| successfully won't be run again when you rerun a stage.              |
+| Run 'asap_check-progress' at any time to check which stages you have |
+| already completed, and to see which setup scripts were already run   |
+| successfully.                                                        |
+|                                                                      |
+| Run 'asap_stage-0' to get started.                                   |
+| The scripts will guide you through the rest of the process, but are  |
+| closely tied to the Arch Linux installation guide, which is avai-    |
+| lable at 'https://wiki.archlinux.org/index.php/Installation_guide'.  |
+|                                                                      |
+| To see what is happening in stageX, have a look at the scripts in    |
+| '/usr/local/lib/asap/stages/stageX'. The scripts in these folders    |
+| are executedin the order given by their respective numbering.        |
+\ ___________________________________________________________________ / 

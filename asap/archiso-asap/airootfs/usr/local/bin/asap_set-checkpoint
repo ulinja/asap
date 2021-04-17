@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# ----------------------------------------------------------------------------- #
+# Appends the argument to the checkpointfile if it is not yet present there.
+# ----------------------------------------------------------------------------- #
+# @file    asap_set-checkpoint
+# @version 1.0
+# @author  cybork
+# @email   
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+##### source the necessary libraries
+libraries=(
+        "$SAPLIB_BASH"
+        "$ASAP_CONFIG"
+)
+for lib in "${libraries[@]}"; do
+        source $lib
+        if [ "$?" -ne 0 ]; then
+                echo "[EXCEPTION] Failed to source $lib."
+                exit 1
+        fi
+done
+
+################################# BEGIN SCRIPT ##################################
+
+# check if argument is present in checkpointfile. Just exit if true.
+grep "^$1$" "$ASAP_CHECKPOINTFILE" 1>/dev/null 2>/dev/null
+if [ "$?" -eq 0 ]; then
+        if [[ $- == *i* ]]; then
+                info_message "Checkpoint $1 is already present."
+        fi
+        exit 0
+fi
+
+# add argument to checkpointfile
+echo "$1" >> "$ASAP_CHECKPOINTFILE"
+
+# print a message if called by an interactive shell, else print just a debug message
+if [[ $- == *i* ]]; then
+        info_message "Added checkpoint $1"
+else
+        debug_message "Added checkpoint $1"
+fi

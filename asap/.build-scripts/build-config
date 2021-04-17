@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# General configuration file for the build scripts
+# DEPENDENCIES: archiso color
+
+# this is used to enable relative path usage from within this script's parent dir
+THIS_SCRIPT_DIR="$(dirname $(realpath $0))"
+
+# location of the asap archiso profile
+ARCHISO_PROFILE_DIR="$THIS_SCRIPT_DIR/../archiso-asap"
+
+# working directory for archiso during the build process
+ARCHISO_WORKING_DIR="/tmp/archiso-tmp"
+
+# the directory to which the built iso will be written
+ARCHISO_OUTPUT_DIR="$THIS_SCRIPT_DIR/../build"
+
+# location of the build directory
+SAPLIB_BUILD_DIR="$THIS_SCRIPT_DIR/../../saplib/build"
+
+# source saplib
+source "$SAPLIB_BUILD_DIR"/saplib/bash/src/messages.bash
+if [ "$?" -ne 0 ]; then
+        echo "[ERROR] Failed to source saplib messages."
+        exit 1
+fi
+source "$SAPLIB_BUILD_DIR"/saplib/bash/src/userinput.bash
+if [ "$?" -ne 0 ]; then
+        echo "[ERROR] Failed to source saplib messages."
+        exit 1
+fi
+
+# check if user is root
+if [ "$(id -u)" -ne 0 ]
+then
+        error_message "You must be root to run this script."
+        exit 1
+fi
