@@ -61,6 +61,7 @@ The following Arch Linux packages are required to use all of saplib's features:
 
 - bat
 - exa
+- fzf
 - git
 - rsync
 - trash-cli
