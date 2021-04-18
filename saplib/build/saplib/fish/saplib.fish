@@ -11,6 +11,3 @@ fish_vi_key_bindings
 for scriptfile in /usr/local/lib/saplib/fish/src/*.fish
         source $scriptfile
 end
-
-# disable the maximum memory cap for command substitution
-set -g fish_read_limit 0
