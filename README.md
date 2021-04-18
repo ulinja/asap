@@ -33,5 +33,7 @@ packagelists, while still being highly automated.
 ## Roadmap
 
 - Full Disk Encryption Support (almost finished)
-- Ansible Integration
+- A saplib neovim preset
+- Ansible Integration / cross-system configuration file management
+- 'ufw' firewall integration
 - Many many useful utilities and integrations for distinguished CLI enjoyers

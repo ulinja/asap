@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Replaces the saplib folder in the archiso profile with the newest version
+# Updates saplib in the archiso profile with the newest version
 # TODO use a better build system...
 
 # this is used to enable relative path usage from within this script's parent dir
@@ -12,14 +12,10 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-# update saplib on the archiso profile
-info_message "Removing existing saplib files..."
-rm -rf "$ARCHISO_PROFILE_DIR"/airootfs/usr/local/lib/saplib
-
 info_message "Updating saplib..."
-cp -pr "$SAPLIB_BUILD_DIR"/saplib "$ARCHISO_PROFILE_DIR"/airootfs/usr/local/lib/
+$SAPLIB_BUILD_DIR/../install_scripts/install.bash $(realpath $ARCHISO_PROFILE_DIR/airootfs)
 if [ "$?" -ne 0 ]; then
-        error_message "Failed to copy saplib to archiso profile."
+        error_message "Failed to update saplib on the archiso profile."
         exit 1
 fi
 

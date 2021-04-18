@@ -43,3 +43,9 @@ alias gpll="git pull --verbose"
 # file renaming
 alias rnmt="perl-rename --verbose --dry-run"
 alias rnm="perl-rename --verbose"
+
+# system power management
+alias ssn="systemctl --no-wall poweroff"
+alias srn="systemctl --no-wall reboot"
+alias sus="systemctl suspend"
+alias hib="systemctl hibernate"
