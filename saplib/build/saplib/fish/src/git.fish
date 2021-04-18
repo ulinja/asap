@@ -8,7 +8,7 @@ function gaa --wraps 'git add' --description "Makes git track all unstaged chang
         git add --verbose --all
 end
 
-function gc --wraps 'git commit' --description "Commits the git repository in its current state, after opening $EDITOR and displaying changes since the last commit."
+function gc --wraps 'git commit' --description "Commits the git repository in its current state, after opening $EDITOR to set a commit message and display changes since the last commit."
         git commit --verbose
 end
 
