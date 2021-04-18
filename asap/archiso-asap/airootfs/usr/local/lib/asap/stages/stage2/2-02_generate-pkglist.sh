@@ -34,7 +34,7 @@ done
 OUTFILE="$ASAP_WORKING_DIR/asap-packagelist.pac"
 PACKAGELISTS_DIR="$ASAP_RESOURCES_DIR/packagelists"
 
-# add packagelists from /root/.saplingsetup/resources/packagelists/ here
+# add packagelists from /usr/local/lib/asap/resources/packagelists/ here
 PACKAGELISTS_USED=(
         "$PACKAGELISTS_DIR/base.pac"
         "$PACKAGELISTS_DIR/amd-cpu.pac"
