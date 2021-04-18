@@ -9,6 +9,7 @@ with **system-wide** integration of certain features, among which are:
 - the `fish` shell
 - the `bat` pager utility
 - the `exa` file discovery utility
+- fast commandline navigation using 'fzf'
 
 This list will surely grow bigger with time, but Sapling will always be a minimal
 Linux base system (minimal with regards to hardware from the last decade).
