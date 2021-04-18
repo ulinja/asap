@@ -39,7 +39,7 @@ Fish scripts are somewhat easier to install. They are stored in
 '/usr/local/lib/saplib/fish/saplib.fish', which loads all of saplib's fish
 functions.
 
-Saplib also comes with some 3rd Party fish plugins, licensed under GPLv3.
+Saplib also comes with some 3rd Party fish plugins, licensed under LGPLv3.
 (Currently just [this one](https://github.com/laughedelic/pisces))
 
 ### PYTHON
