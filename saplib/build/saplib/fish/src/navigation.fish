@@ -32,3 +32,18 @@ function frcd --description "Search for and change into a directory anywhere on 
                 cd $target_dir
         end
 end
+
+function cdp --description "Move backwards in the directory tree along the current path."
+    # generate a list of all ancestors of the absolute path from root to the current working directory
+    # (if the working directory is '/foo/bar/baz': the list contains '/foo/bar', '/foo' and '/')
+    set dirs (dirname (pwd))
+    while [ $dirs[-1] != '/' ]
+        set dirs $dirs (dirname $dirs[-1])
+    end
+
+    # open 'fzf' and cd into the directory chosen from the list
+    set target_dir (printf '%s\n' $dirs | xargs exa --oneline --icons --color always --list-dirs | fzf --ansi --preview 'exa --icons --color always --all --group-directories-first --classify {-1}' | awk '{print $(NF)}')
+    if string length -q -- $target_dir
+            cd $target_dir
+    end
+end
