@@ -67,7 +67,7 @@ echo "[SUCCESS] Installed dependency: 'pisces'"
 # modify '/etc/environment'
 SRC_FILE="$BUILD_DIR/environment.append"
 DST_FILE="$ROOT_DIR/etc/environment"
-echo "[INFO] Modifying global config: '$SRC_FILE'..."
+echo "[INFO] Modifying global config: '$DST_FILE'..."
 # check if any '@SAPLING*'-tag is present in '$DST_FILE'
 grep '@SAPLING' "$DST_FILE" 1>/dev/null 2>/dev/null
 if [ "$?" -ne 0 ]; then
@@ -79,13 +79,13 @@ if [ "$?" -ne 0 ]; then
                 exit 1
         fi
 fi
-echo "[SUCCESS] Modified global config: '$SRC_FILE'"
+echo "[SUCCESS] Modified global config: '$DST_FILE'"
 unset -v SRC_FILE ; unset -v DST_FILE
 
 # modify '/etc/bash.bashrc'
 SRC_FILE="$BUILD_DIR/bash.bashrc.append"
 DST_FILE="$ROOT_DIR/etc/bash.bashrc"
-echo "[INFO] Modifying global config: '$SRC_FILE'..."
+echo "[INFO] Modifying global config: '$DST_FILE'..."
 # check if any '@SAPLING*'-tag is present in '$DST_FILE'
 grep '@SAPLING' "$DST_FILE" 1>/dev/null 2>/dev/null
 if [ "$?" -ne 0 ]; then
@@ -97,7 +97,7 @@ if [ "$?" -ne 0 ]; then
                 exit 1
         fi
 fi
-echo "[SUCCESS] Modified global config: '$SRC_FILE'"
+echo "[SUCCESS] Modified global config: '$DST_FILE'"
 unset -v SRC_FILE ; unset -v DST_FILE
 
 # (Re)install Saplib sourcecode
