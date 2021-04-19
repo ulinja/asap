@@ -13,7 +13,7 @@ function la --wraps exa --description "Lists all (including hidden) files in the
         exa --long --header --group --classify --git --icons --group-directories-first --all $argv
 end
 
-function fcd --description "Search for and change into a directory somwhere under the current working directory."
+function cdn --description "Search for and change into a directory somwhere under the current working directory."
         set fzf_fileselect_flags --directories
 
         set target_dir (fzf_fileselect $fzf_fileselect_flags)
@@ -23,7 +23,7 @@ function fcd --description "Search for and change into a directory somwhere unde
         end
 end
 
-function frcd --description "Search for and change into a directory anywhere on the system."
+function cdf --description "Find and change into a directory anywhere on the system."
         set fzf_fileselect_flags --directories --from-root
 
         set target_dir (fzf_fileselect $fzf_fileselect_flags)
@@ -33,7 +33,7 @@ function frcd --description "Search for and change into a directory anywhere on 
         end
 end
 
-function cdp --description "Move backwards in the directory tree along the current path."
+function cdb --description "Move backwards in the directory tree along the current path."
     # generate a list of all ancestors of the absolute path from root to the current working directory
     # (if the working directory is '/foo/bar/baz': the list contains '/foo/bar', '/foo' and '/')
     set dirs (dirname (pwd))
