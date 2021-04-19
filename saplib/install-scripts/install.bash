@@ -100,6 +100,31 @@ fi
 echo "[SUCCESS] Modified global config: '$DST_FILE'"
 unset -v SRC_FILE ; unset -v DST_FILE
 
+# modify '/etc/xdg/nvim/sysinit.vim'
+SRC_FILE="$BUILD_DIR/sysinit.vim.append"
+DST_FILE="$ROOT_DIR/etc/xdg/nvim/sysinit.vim"
+echo "[INFO] Modifying global config: '$DST_FILE'..."
+# check if any '@SAPLING*'-tag is present in '$DST_FILE'
+grep '@SAPLING' "$DST_FILE" 1>/dev/null 2>/dev/null
+if [ "$?" -ne 0 ]; then
+        # append the lines to '$DST_FILE'
+        echo "" >> "$DST_FILE"
+        cat "$SRC_FILE" >> "$DST_FILE"
+        if [ "$?" -ne 0 ]; then
+                echo "[EXCEPTION] Failed to append '$SRC_FILE' to '$DST_FILE'"
+                exit 1
+        fi
+fi
+echo "[SUCCESS] Modified global config: '$DST_FILE'"
+unset -v SRC_FILE ; unset -v DST_FILE
+
+# install vim-plug
+curl -fLo /etc/xdg/nvim/autoload/plug.vim --create-dirs 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to download vim-plug"
+    exit 1
+fi
+
 # (Re)install Saplib sourcecode
 SRC_DIR="$BUILD_DIR/saplib"
 DST_PARENT_DIR="$ROOT_DIR/usr/local/lib"
@@ -115,5 +140,7 @@ unset -v SRC_DIR ; unset -v DST_PARENT_DIR
 
 # create fish config symlinks
 ln -sf /usr/local/lib/saplib/fish/saplib.fish "$ROOT_DIR"/etc/fish/conf.d/saplib.fish
+
+# TODO install vim plugins
 
 echo "[SUCCESS] Installed saplib source files."
