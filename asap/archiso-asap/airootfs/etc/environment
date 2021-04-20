@@ -12,15 +12,11 @@ EDITOR=nvim
 VISUAL=nvim
 PAGER=bat --paging=always
 
-# source SAPLIB_BASH to access saplib's bash functions
-SAPLIB_BASH=/usr/local/lib/saplib/bash/saplib.bash
-
-# controls whether saplib's debug messages are printed
-SAPLIB_DEBUGMESSAGES=false
-
+#@ASAP_START
 # sets asap environment variables
 ASAP_CONFIG=/usr/local/lib/asap/ASAP_CONFIG
 ASAP_FUNCTIONS=/usr/local/lib/asap/resources/asap_functions.sh
+#@ASAP_END
 
 #@SAPLING_START
 # source SAPLIB_BASH to access saplib's bash functions

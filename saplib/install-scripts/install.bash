@@ -13,6 +13,7 @@
 # @author  cybork
 # @email   
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 THIS_DIR="$(dirname $(realpath $0))"
 BUILD_DIR="$THIS_DIR/../build"
 
@@ -34,6 +35,10 @@ if [ ! -z "$ROOT_DIR" -a ! -d "$ROOT_DIR" ]; then
         echo "[ERROR] $ROOT_DIR is not a directory"
         exit 1
 fi
+
+
+
+### Saplib-specific
 
 # install 'color' dependency
 echo "[INFO] Installing dependency: 'color'..."
@@ -100,6 +105,26 @@ fi
 echo "[SUCCESS] Modified global config: '$DST_FILE'"
 unset -v SRC_FILE ; unset -v DST_FILE
 
+# (Re)install Saplib sourcecode
+SRC_DIR="$BUILD_DIR/saplib"
+DST_PARENT_DIR="$ROOT_DIR/usr/local/lib"
+echo "[INFO] Installing saplib source files..."
+# clean previous files
+rm -rf "$DST_PARENT_DIR"/saplib
+cp -r "$SRC_DIR" "$DST_PARENT_DIR"/
+if [ "$?" -ne 0 ]; then
+        echo "[ERROR] Failed to copy $SRC_DIR to $DST_PARENT_DIR/"
+        exit 1
+fi
+unset -v SRC_DIR ; unset -v DST_PARENT_DIR
+
+# create fish config symlinks
+ln -sf /usr/local/lib/saplib/fish/saplib.fish "$ROOT_DIR"/etc/fish/conf.d/saplib.fish
+
+
+
+### nvim-specific
+
 # modify '/etc/xdg/nvim/sysinit.vim'
 SRC_FILE="$BUILD_DIR/sysinit.vim.append"
 DST_FILE="$ROOT_DIR/etc/xdg/nvim/sysinit.vim"
@@ -125,22 +150,129 @@ if [ "$?" -ne 0 ]; then
     exit 1
 fi
 
-# (Re)install Saplib sourcecode
-SRC_DIR="$BUILD_DIR/saplib"
-DST_PARENT_DIR="$ROOT_DIR/usr/local/lib"
-echo "[INFO] Installing saplib source files..."
-# clean previous files
-rm -rf "$DST_PARENT_DIR"/saplib
-cp -r "$SRC_DIR" "$DST_PARENT_DIR"/
+# install python support for neovim
+package='pynvim'
+python3 -m pip install --upgrade $package
 if [ "$?" -ne 0 ]; then
-        echo "[ERROR] Failed to copy $SRC_DIR to $DST_PARENT_DIR/"
-        exit 1
+    echo "[ERROR] failed to install $package"
+    exit 1
 fi
-unset -v SRC_DIR ; unset -v DST_PARENT_DIR
+unset -v package
 
-# create fish config symlinks
-ln -sf /usr/local/lib/saplib/fish/saplib.fish "$ROOT_DIR"/etc/fish/conf.d/saplib.fish
+# install neovim deoplete dependency
+package='msgpack'
+python3 -m pip install --upgrade $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
 
-# TODO install vim plugins
 
-echo "[SUCCESS] Installed saplib source files."
+
+### Ale linting engines
+
+package='bashate'
+python3 -m pip install --upgrade $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='pycodestyle'
+python3 -m pip install --upgrade $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='autopep8 '
+python3 -m pip install --upgrade $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='mypy'
+python3 -m pip install --upgrade $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='pyflakes'
+python3 -m pip install --upgrade $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+
+# pacman packages
+
+package='shellcheck'
+pacman -Sy $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='desktop-file-utils'
+pacman -Sy $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+
+## npm packages
+
+package='bash-language-server'
+npm i -g $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='fixjson '
+npm i -g $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='sql-lint'
+npm i -g $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+package='prettier'
+npm install --save-dev --save-exact $package
+if [ "$?" -ne 0 ]; then
+    echo "[ERROR] failed to install $package"
+    exit 1
+fi
+unset -v package
+
+
+
+### Finalize
+
+# run :PlugInstall
+nvim -c ":PlugInstall"
+
+echo "[SUCCESS] Saplib was installed."
+echo "[INFO] Please log out or reboot to start using saplib."
+exit 0

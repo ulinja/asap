@@ -62,7 +62,7 @@ gcc
 jdk-openjdk
 #jdk8-openjdk
 jre-openjdk
-#npm
+npm
 python
 python-pip
 #python2
