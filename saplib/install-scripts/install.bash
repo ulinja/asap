@@ -30,7 +30,7 @@ if [ "$#" -gt 1 ]; then
         echo "[ERROR] Invalid number of arguments"
         exit 1
 fi
-# make sure that $ROOT_DIR is a directory
+# make sure that $ROOT_DIR is a directory and it was supplied
 if [ ! -z "$ROOT_DIR" -a ! -d "$ROOT_DIR" ]; then
         echo "[ERROR] $ROOT_DIR is not a directory"
         exit 1
@@ -216,7 +216,7 @@ unset -v package
 # pacman packages
 
 package='shellcheck'
-pacman -Sy $package
+pacman -Sy --noconfirm --quiet $package
 if [ "$?" -ne 0 ]; then
     echo "[ERROR] failed to install $package"
     exit 1
@@ -224,7 +224,7 @@ fi
 unset -v package
 
 package='desktop-file-utils'
-pacman -Sy $package
+pacman -Sy --noconfirm --quiet $package
 if [ "$?" -ne 0 ]; then
     echo "[ERROR] failed to install $package"
     exit 1

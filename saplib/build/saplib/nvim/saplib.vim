@@ -129,6 +129,9 @@ noremap <silent> <M-F> :Lines<CR>
 " Open undo-tree
 noremap <silent> <F12> :UndotreeToggle<CR>
 
+" use the tab key for deoplete completion
+" TODO
+
 " Move between splits using Ctrl+<vi-keys>
 noremap <silent> <C-H> :wincmd h<CR>
 noremap <silent> <C-L> :wincmd l<CR>
