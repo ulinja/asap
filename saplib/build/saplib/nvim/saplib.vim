@@ -49,6 +49,9 @@ Plug 'bronson/vim-trailing-whitespace'
 " Rainbow parentheses
 Plug 'luochen1990/rainbow'
 
+" Support for i3 config files
+Plug 'potatoesmaster/i3-vim-syntax'
+
 call plug#end()
 
 """ GENERAL SETTINGS
