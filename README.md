@@ -1,8 +1,8 @@
 # Introduction
 
 Sapling is an extended base install of Arch Linux. It includes a fully automated,
-extensible installation suite called `[ASAP](/asap/README.md)` and runs based on
-the `[Saplib](/saplib/README.md)` multi-language library.
+extensible installation suite called [ASAP](/asap/README.md) and runs based on
+the [Saplib](/saplib/README.md) multi-language library.
 
 Sapling provides a modern base for any server or desktop linux system, as
 'vanilla' Arch Linux does, albeit slightly extended with **system-wide**
@@ -31,7 +31,7 @@ This is where Sapling shines and it is the the original reason for Sapling's inc
 
 Sapling is installed through the ASAP commandline-based installation suite.
 ASAP is very modular in nature while still being fully automated.
-See `[here](/asap/README.md)` for a description of what ASAP can do.
+See [here](/asap/README.md) for a description of what ASAP can do.
 
 ## Roadmap
 
