@@ -13,7 +13,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 info_message "Updating saplib..."
-$SAPLIB_BUILD_DIR/../install_scripts/install.bash $(realpath $ARCHISO_PROFILE_DIR/airootfs)
+sudo -u cybork $SAPLIB_BUILD_DIR/../install_scripts/install.bash $(realpath $ARCHISO_PROFILE_DIR/airootfs)
 if [ "$?" -ne 0 ]; then
         error_message "Failed to update saplib on the archiso profile."
         exit 1
