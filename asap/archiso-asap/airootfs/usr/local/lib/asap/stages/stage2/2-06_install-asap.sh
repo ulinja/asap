@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
 # Copies the asap setup scripts for stage3 and above to the new system.
+#
+# TODO delete previous stages
 # ----------------------------------------------------------------------------- #
 # @file    2-06_install-asap.sh
 # @version 1.0
@@ -23,7 +25,6 @@ for lib in "${libraries[@]}"; do
 done
 
 ################################# BEGIN SCRIPT ##################################
-# TODO delete older stages
 
 info_message "Copying asap to the new system..."
 

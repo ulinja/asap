@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
-# Installs the saplib library to the new system.
+# Reinstalls saplib, including its neovim plugins.
 # ----------------------------------------------------------------------------- #
-# @file    2-05_install-saplib.sh
+# @file    3-12_reinstall-saplib.sh
 # @version 1.0
 # @author  cybork
 # @email   
@@ -24,15 +24,13 @@ done
 
 ################################# BEGIN SCRIPT ##################################
 
-info_message "Installing saplib..."
+info_message "Resinstalling Saplib..."
 
-# execute the saplib install script in chroot mode
-
-"$ASAP_RESOURCES_DIR"/saplib/install-scripts/install.bash /mnt
+"$ASAP_RESOURCES_DIR"/saplib/install-scripts/install.bash
 if [ "$?" -ne 0 ]; then
-        exception_message "Failed to install saplib."
+        exception_message "Failed to reinstall saplib."
         exit 1
 fi
 
-success_message "Finished installing saplib."
+success_message "Saplib installation complete. Log out or reboot for changes to take effect."
 exit 0

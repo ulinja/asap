@@ -1,1 +1,1 @@
-.build-scripts/build-iso.sh
+build-scripts/build-iso.sh

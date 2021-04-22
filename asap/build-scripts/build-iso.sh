@@ -17,7 +17,6 @@ info_message "Cleaning build directory..."
 "$THIS_SCRIPT_DIR"/clean-iso.sh
 
 # update saplib on the archiso profile
-info_message "Updating saplib..."
 "$THIS_SCRIPT_DIR"/update-saplib.sh || exit 1
 
 # add and configure a wifi pre-shared key to the iso

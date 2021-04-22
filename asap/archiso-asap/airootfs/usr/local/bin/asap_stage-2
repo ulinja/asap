@@ -64,4 +64,4 @@ fi
 
 echo ""
 warning_message "Now you must chroot into your newly installed system to finish the setup."
-info_message "Run '$(color black white)arch-chroot /mnt$(color)' to chroot. Then, continue the setup by runnning '$(color black white)asap_stage-3$(color)'."
+info_message "Run '$(color black white)arch-chroot /mnt /bin/fish$(color)' to chroot. Then, continue the setup by runnning '$(color black white)asap_stage-3$(color)'."
