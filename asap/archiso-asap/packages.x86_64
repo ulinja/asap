@@ -33,6 +33,7 @@ f2fs-tools
 fatresize
 fish
 fsarchiver
+fzf
 gnu-netcat
 gpart
 gpm

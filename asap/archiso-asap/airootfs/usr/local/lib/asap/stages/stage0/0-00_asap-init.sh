@@ -37,8 +37,9 @@ for scriptfile in "$ASAP_SCRIPTS_DIR"/stage*/*.sh ; do
         chmod 740 "$scriptfile"
 done
 
-# Currently the only resource script which needs to be executable
+# Make resource scripts executable
 chmod 740 "$ASAP_RESOURCES_DIR"/download-pacman-mirrorlist.py
+chmod 740 "$ASAP_RESOURCES_DIR"/saplib/install-scripts/*
 
 # Create global working directory
 mkdir "$ASAP_WORKING_DIR"

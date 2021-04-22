@@ -144,7 +144,7 @@ unset -v SRC_FILE ; unset -v DST_FILE
 
 if [ -z "$ROOT_DIR" ]; then
         # neovim plugins can only be installed from within a system
-        $THIS_SCRIPT_DIR/install-nvim-plugins.bash
+        $THIS_DIR/install-nvim-plugins.bash
 else
         # cut plugins out of the installed neovimrc
         SRC_FILE="$ROOT_DIR/usr/local/lib/saplib/nvim/saplib.vim"

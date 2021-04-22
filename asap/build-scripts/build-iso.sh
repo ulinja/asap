@@ -50,6 +50,9 @@ fi
 info_message "Removing $ARCHISO_WORKING_DIR"
 rm -rf "$ARCHISO_WORKING_DIR"
 
+# change owner of the iso
+chown 1000:1000 "$ARCHISO_OUTPUT_DIR"/*
+
 success_message "Build completed in $ELAPSED_TIME seconds."
 
 # XXX remove secrets to avoid pushing them to git!

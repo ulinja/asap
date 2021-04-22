@@ -41,7 +41,7 @@ echo ""
 prompt_yes_or_no "I will now pacstrap the new system with these packages. Proceed?"
 if [ "$?" -ne 0 ]; then
         info_message "Exiting."
-        exit 0
+        exit 1
 fi
 
 info_message "Pacstrapping the new system to $PACSTRAP_DEST_DIR"

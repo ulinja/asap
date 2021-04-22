@@ -19,6 +19,7 @@ StdOut:
 ASAP runs in multiple distinct stages. You are always able to run your own
 commands in between stages and still have full control of the process.
 You can modify the bite-sized installation scripts at any time.
+
 ASAP is built upon error-prevention and preventing duplicate execution: If
 something fails in a script, the installation is safely interrupted. You can fix
 the error and just rerun the entire stage: the checkpointing system will prevent
@@ -30,6 +31,10 @@ Building your own installation medium is very easy with the provided ASAP
 archiso-profile and ISO-generation scripts.
 Building an installation image is limited to Arch-based systems though, and requires
 the [archiso](https://wiki.archlinux.org/index.php/Archiso) package to be installed.
+
+#### How it works
+
+
 
 ### Packages
 

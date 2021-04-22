@@ -13,7 +13,7 @@ fi
 
 info_message "Removing WPA2 secrets from archiso profile..."
 
-rm -f "$ARCHISO_OUTPUT_DIR"/airootfs/var/lib/iwd/*
+rm -f "$ARCHISO_PROFILE_DIR"/airootfs/var/lib/iwd/*
 
 success_message "Removed WPA2 secrets."
 exit 0

@@ -155,6 +155,4 @@ else
         rm "$SRC_FILE_OLD"
 fi
 
-echo "[SUCCESS] Saplib was installed."
-echo "[INFO] Please log out or reboot to start using saplib."
 exit 0
