@@ -2,6 +2,8 @@
 # ----------------------------------------------------------------------------- #
 # Prompts the user to edit the previously generated mirrorlist and replaces
 # the arch linux default mirrorlist at /etc/pacman.d/mirrorlist.
+#
+# TODO make sure that some mirrors were indeed uncommented by the user
 # ----------------------------------------------------------------------------- #
 # @file    2-01_choose-mirrors.sh
 # @version 1.0
@@ -24,7 +26,6 @@ for lib in "${libraries[@]}"; do
 done
 
 ################################# BEGIN SCRIPT ##################################
-# TODO make sure that some mirrors were indeed uncommented by the user
 
 SRC_FILE="$ASAP_WORKING_DIR/mirrorlist"
 DST_FILE="/etc/pacman.d/mirrorlist"

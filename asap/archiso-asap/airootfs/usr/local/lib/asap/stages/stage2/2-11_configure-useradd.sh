@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
-# Modifies the login shell for the root user on the new system.
+# Modifies the 'useradd' config on the new system, to make fish the default
+# login shell for new users.
+#
+# TODO allow user to choose the default login shell on the new system
 # ----------------------------------------------------------------------------- #
-# @file    2-12_modify-root-login-shell.sh
+# @file    2-12_configure-useradd.sh
 # @version 1.0
 # @author  cybork
 # @email   
@@ -24,13 +27,13 @@ done
 
 ################################# BEGIN SCRIPT ##################################
 
-info_message "Setting the root login shell..."
+info_message "Modifiyng the 'useradd' config..."
 
-sed -i 's/\/root:\/bin\/bash/\/root:\/bin\/fish/' /mnt/etc/passwd
+sed -i 's/SHELL=\/bin\/bash/SHELL=\/bin\/fish/' /mnt/etc/default/useradd
 if [ "$?" -ne 0 ]; then
-        exception_message "Failed to modify '/mnt/etc/passwd'"
+        exception_message "Failed to modify '/mnt/etc/default/useradd'"
         exit 1
 fi
 
-success_message "Set the root login shell."
+success_message "Modified the 'useradd' config."
 exit 0

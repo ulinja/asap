@@ -7,6 +7,8 @@
 # before running this script.
 # The resulting packagelist can be used to pacstrap the system.
 # It is output to the current directory.
+#
+# TODO make packagelist selection interactive
 # ----------------------------------------------------------------------------- #
 # @file    2-02_generate-pkglist.sh
 # @version 1.0
@@ -29,7 +31,6 @@ for lib in "${libraries[@]}"; do
 done
 
 ################################# BEGIN SCRIPT ##################################
-# TODO make packagelist selection interactive
 
 OUTFILE="$ASAP_WORKING_DIR/asap-packagelist.pac"
 PACKAGELISTS_DIR="$ASAP_RESOURCES_DIR/packagelists"

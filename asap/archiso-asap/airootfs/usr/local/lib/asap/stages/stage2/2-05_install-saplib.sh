@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
 # Installs the saplib library to the new system.
+#
+# TODO update to use sapling's installation script
 # ----------------------------------------------------------------------------- #
 # @file    2-05_install-saplib.sh
 # @version 1.0

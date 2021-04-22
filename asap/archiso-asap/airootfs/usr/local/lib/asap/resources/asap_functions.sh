@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # A library of functions used in asap scripts.
-# Functions which should support interactive use do not belong in here, they
+# Functions/Scripts which run in interactive shells do not belong in here, they
 # should be placed into '/usr/local/bin' as executable scripts instead.
 
 source "$SAPLIB_BASH"
@@ -23,13 +23,13 @@ function run_if_no_checkpoint () {
         fi
 
         local target_script="$1"
-        # argument validity check: the supplied script exists
+        # argument validity check: the supplied script exists and is executable
         if [ ! -x "$target_script" ]; then
                 exception_message "Script $target_script does not exist or is not executable"
                 return 4
         fi
 
-        # Check if script is already listed in the checkpoint file.
+        # Check if script's basename is already listed in the checkpoint file.
         # If so, skip execution. Else, run it.
         grep "$(basename $target_script)" "$ASAP_CHECKPOINTFILE" 1>/dev/null 2>/dev/null
         if [ "$?" -eq 0 ]; then
@@ -52,7 +52,8 @@ function run_if_no_checkpoint () {
 }
 
 function check_previous_stages_completion () {
-        # Checks the checkpointfile on whether the previous stages have been completed.
+        # Takes a single integer as an argument, representing the stage number whose preceeding stages should be checked for completion
+        # Checks the checkpointfile on whether all stages preceeding stage"$1" have been completed.
         # Returns 0 if all previous stages were completed.
         # Returns 1 and prints a warning message if some previous stages are missing from the checkpointfile.
 
@@ -94,7 +95,7 @@ function check_previous_stages_completion () {
 }
 
 function run_stage () {
-        # Runs all setup scripts in a stage.
+        # Runs all setup scripts in a stage's script folder.
         # Ensures that the checkpoints from previous stages are present.
         # Sets a checkpoint for each script that ran successfully.
         # Sets a checkpoint for the stage itself if every script in it ran successfully.

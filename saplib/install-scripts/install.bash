@@ -7,6 +7,8 @@
 # Example: you are installing to a pre-chroot system mounted at '/mnt', thus you
 # can supply '/mnt' as an argument. Do not append a slash if you are supplying
 # an argument.
+# 
+# TODO refactor neovim installation into a separate script
 # ----------------------------------------------------------------------------- #
 # @file    install.bash
 # @version 1.0

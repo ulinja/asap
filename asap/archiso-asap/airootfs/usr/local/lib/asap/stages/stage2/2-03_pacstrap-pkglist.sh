@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
-# Runs pactrap using the previously generated packagelist.
+# Runs pactrap using the previously generated packagelist, which is present in
+# the asap working directory.
 # ----------------------------------------------------------------------------- #
 # @file    2-03_pacstrap-pkglist.sh
 # @version 1.0

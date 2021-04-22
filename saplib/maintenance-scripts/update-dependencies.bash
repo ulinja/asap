@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
-# Updates the dependencies.
+# Updates the dependencies inside the repo.
 # ----------------------------------------------------------------------------- #
 # @file    update-dependencies.bash
 # @version 1.0

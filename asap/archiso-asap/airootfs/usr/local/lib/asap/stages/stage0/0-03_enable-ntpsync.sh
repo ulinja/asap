@@ -33,7 +33,7 @@ then
 fi
 
 # FIXME suppress journalctl messages after running timedatectl
-# workaround is to just wait until they all printed and then echo a newline
+# workaround is to just wait until they all printed and then echo a newline. not even this works reliably
 sleep 4
 echo ""
 

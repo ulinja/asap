@@ -27,17 +27,17 @@ done
 
 info_message "Initializing asap..."
 
-# make stage wrapper scripts executable
+# Make stage wrapper scripts executable
 for scriptfile in /usr/local/bin/asap_* ; do
         chmod 740 "$scriptfile"
 done
 
-# make setup scripts executable
+# Make setup scripts executable
 for scriptfile in "$ASAP_SCRIPTS_DIR"/stage*/*.sh ; do
         chmod 740 "$scriptfile"
 done
 
-# currently the only resource script which needs to be executable
+# Currently the only resource script which needs to be executable
 chmod 740 "$ASAP_RESOURCES_DIR"/download-pacman-mirrorlist.py
 
 # Create global working directory

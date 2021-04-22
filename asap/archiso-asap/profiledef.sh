@@ -4,7 +4,7 @@
 iso_name="archlinux-sapling"
 iso_publisher="Skyforest"
 iso_application="Arch Linux Sapling Live/Rescue CD"
-iso_version="B-2.2.0"
+iso_version="A-2.2.0"
 iso_label="ASAP_$iso_version"
 install_dir="arch"
 bootmodes=('uefi-x64.systemd-boot.esp')

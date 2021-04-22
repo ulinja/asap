@@ -2,6 +2,9 @@
 # ----------------------------------------------------------------------------- #
 # Download an updated and ranked-by-downloadspeed mirrorlist to the sapling
 # working directory, using the download-pacman-mirrorlist.py script.
+#
+# TODO fix the python script to handle cmdline arguments and specify ouput dir
+# TODO improve user interaction to remove unwanted target countries
 # ----------------------------------------------------------------------------- #
 # @file    2-00_download-pacman-mirrorlist.sh
 # @version 1.0
@@ -24,7 +27,6 @@ for lib in "${libraries[@]}"; do
 done
 
 ################################# BEGIN SCRIPT ##################################
-# TODO fix the python script to handle cmdline arguments and specify ouput dir
 
 info_message "I am about to download a fresh pacman mirrorlist."
 info_message "By default, mirrors from all countries will be added."
