@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
 # Enables the systemd ssh service on the new system if the user wishes to do so.
+#
+# TODO skip if '/home/$USER/.ssh/authorized_keys' does not exist
 # ----------------------------------------------------------------------------- #
 # @file    3-09_enable-ssh-daemon.sh
 # @version 1.0

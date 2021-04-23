@@ -35,7 +35,7 @@ fi
 info_message "Beginning ISO build..."
 START_TIME="$(date +%s)"
 mkdir -vp "$ARCHISO_WORKING_DIR"
-mkarchiso -v -w "$ARCHISO_WORKING_DIR" -o "$ARCHISO_OUTPUT_DIR" "$ARCHISO_PROFILE_DIR"/ ; exit_status="$?"
+sudo mkarchiso -v -w "$ARCHISO_WORKING_DIR" -o "$ARCHISO_OUTPUT_DIR" "$ARCHISO_PROFILE_DIR"/ ; exit_status="$?"
 END_TIME="$(date +%s)"
 ELAPSED_TIME="$(( END_TIME - START_TIME ))"
 
@@ -51,7 +51,7 @@ info_message "Removing $ARCHISO_WORKING_DIR"
 rm -rf "$ARCHISO_WORKING_DIR"
 
 # change owner of the iso
-chown 1000:1000 "$ARCHISO_OUTPUT_DIR"/*
+# chown 1000:1000 "$ARCHISO_OUTPUT_DIR"/*
 
 success_message "Build completed in $ELAPSED_TIME seconds."
 

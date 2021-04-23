@@ -7,8 +7,6 @@
 # Example: you are installing to a pre-chroot system mounted at '/mnt', thus you
 # can supply '/mnt' as an argument. Do not append a slash if you are supplying
 # an argument.
-# 
-# TODO refactor neovim installation into a separate script
 # ----------------------------------------------------------------------------- #
 # @file    install.bash
 # @version 1.0
@@ -139,6 +137,10 @@ unset -v SRC_FILE ; unset -v DST_FILE
 if [ -z "$ROOT_DIR" ]; then
         # neovim plugins can only be installed from within a system
         $THIS_DIR/install-nvim-plugins.bash
+        if [ "?" -ne 0 ]; then
+            echo "[ERROR] Something went wrong while installing the saplib neovim plugins"
+            exit 1
+        fi
 else
         # cut plugins out of the installed neovimrc
         SRC_FILE="$ROOT_DIR/usr/local/lib/saplib/nvim/saplib.vim"

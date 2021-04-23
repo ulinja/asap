@@ -12,4 +12,4 @@ if [ "$?" -ne 0 ]; then
 fi
 
 # remove all files in the build dir
-rm -vf "$ARCHISO_OUTPUT_DIR"/*
+rm -v "$ARCHISO_OUTPUT_DIR"/*

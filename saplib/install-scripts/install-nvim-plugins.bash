@@ -62,6 +62,7 @@ done
 
 
 npm_packages=(
+        'neovim'
         'bash-language-server'
         'fixjson'
         'sql-lint'
@@ -69,7 +70,7 @@ npm_packages=(
 )
 for package in "${npm_packages[@]}"
 do
-        npm i -g $package
+        npm install -g $package
         if [ "$?" -ne 0 ]; then
             echo "[ERROR] failed to install $package"
             exit 1

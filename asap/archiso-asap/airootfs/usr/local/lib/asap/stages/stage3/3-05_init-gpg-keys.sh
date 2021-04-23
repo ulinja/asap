@@ -31,7 +31,7 @@ info_message "We will initialize the pacman keyring now."
 # init pacman key
 info_message 'Inititalizing pacman keyring...'
 pacman-key --init
-if [ "$exit_status" -ne 0 ]; then
+if [ "$?" -ne 0 ]; then
         error_message 'Failed to initalize pacman keyring!'
         warning_message 'Aborting...'
         exit 1

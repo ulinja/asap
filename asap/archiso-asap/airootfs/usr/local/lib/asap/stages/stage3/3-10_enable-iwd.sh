@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
 # Enables the systemd iwd service on the new system if the user wishes to do so.
+#
+# TODO skip if '/var/lib/iwd' does not exist
 # ----------------------------------------------------------------------------- #
 # @file    3-10_enable-iwd.sh
 # @version 1.0
