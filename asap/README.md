@@ -1,29 +1,64 @@
-# ASAP
+# :hourglass:    ASAP    :hourglass:
 
 *Version 0.8.0-alpha*
 
-## Introduction
+## About
 
-**ASAP** is short for "Archlinux Sapling". It's not just an acronym though! As
-the name suggests it will provide you with Arch Linux Sapling *as soon as possible*:
-ASAP is a fully automated installation suite for Arch Linux, simplifying a complete
-Arch base install to typing a few intuitive commands and watching the process on
-StdOut:
+ASAP is an automated installation suite for Arch Linux, simplifying a complete
+installation into typing a few intuitive commands and watching the process on your
+terminal:
 
-*TODO: Add a nice gif of the installation process*
+![ASAP Demo](/asap/img/stage3.gif)
+
+### Getting started
+
+ASAP runs in distinct stages:
+
+Stage Number | Stage Overview
+------------ | --------------
+Stage 0 | Initialize installation resources
+Stage 1 | Drive partitioning, formatting & mounting
+Stage 2 | Bootstrapping (pre-chroot)
+Stage 3 | System setup (post-chroot)
+
+![ASAP Demo](/asap/img/stage0.gif)
+
+Begin a stage by running the following, where `X` is the stage number:
+
+```bash
+asap_stageX
+```
+
+You can run your own commands in between stages. With the exception of stage 1,
+no manual intervention is required for a standard installation.
+
+## How it works
+
+To check which installation scripts have run successfully, run:
+
+```bash
+asap_check-progress
+```
+
+This will display the contents of the asap checkpoint-file. Scripts listed in the
+checkpoint-file will not be run again. This is useful if something went wrong: you
+can fix the issue and just rerun the stage entirely using `asap_stageX`.
+
+To manually add a script to the checkpoint-file, use:
+
+```bash
+asap_set-checkpoint my-checkpoint
+```
+
+where `my-checkpoint` is a stage in the form `stageX` or the filename of a script.
+
+### Packages
+
+Asap comes with a few package-lists by default. They define which packages are installed
+on your base system and can be freely modified. By default, they are limited to
+a minimal list of linux utilities, including the [Saplib](/saplib/README.md) library.
 
 ## Customization
-
-### Control
-
-ASAP runs in multiple distinct stages. You are always able to run your own
-commands in between stages and still have full control of the process.
-You can modify the bite-sized installation scripts at any time.
-
-ASAP is built upon error-prevention and preventing duplicate execution: If
-something fails in a script, the installation is safely interrupted. You can fix
-the error and just rerun the entire stage: the checkpointing system will prevent
-any script which already ran successfully from being rerun.
 
 ASAP is customizable and extensible: you can **bake your own scripts right into the
 installation medium**, and they will be executed and logged automatically by ASAP.
@@ -32,13 +67,7 @@ archiso-profile and ISO-generation scripts.
 Building an installation image is limited to Arch-based systems though, and requires
 the [archiso](https://wiki.archlinux.org/index.php/Archiso) package to be installed.
 
-#### How it works
+### Roadmap
 
-
-
-### Packages
-
-Asap comes with a few package-lists by default. They define which packages are installed
-on your base system and can be freely modified. By default, they are limited to
-a minimal list of linux utilities, including the [Saplib](/saplib/README.md)
-library.
+- LVM-on-LUKS Full Disk Encryption Support (almost finished)
+- Option to display previews of what each script in a stage does prior to running it

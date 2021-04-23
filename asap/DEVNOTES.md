@@ -6,6 +6,7 @@
 - [ ] Host pre-compiled latest ISO
 - [ ] LVM-on-LUKS integration.
 - [ ] Create the default non-root user during installation
+- [ ] clean up asap command syntax
 - [ ] Add an asap uninstallation script to remove asap-envvars and scripts after installation
 - [ ] Migrate to a more sensible build system.
 - [ ] Wrap asap_functions in python instead of bash
