@@ -19,12 +19,6 @@
 THIS_DIR="$(dirname $(realpath $0))"
 BUILD_DIR="$THIS_DIR/../build"
 
-# check if user is root
-if [ "$(id -u)" -ne 0 ]; then
-        echo "[ERROR] You must have root privileges for the installation."
-        exit 1
-fi
-
 ROOT_DIR="$1"
 
 # number of arguments must not exceed 1
@@ -144,7 +138,7 @@ unset -v SRC_FILE ; unset -v DST_FILE
 
 if [ -z "$ROOT_DIR" ]; then
         # neovim plugins can only be installed from within a system
-        $THIS_SCRIPT_DIR/install-nvim-plugins.bash
+        $THIS_DIR/install-nvim-plugins.bash
 else
         # cut plugins out of the installed neovimrc
         SRC_FILE="$ROOT_DIR/usr/local/lib/saplib/nvim/saplib.vim"

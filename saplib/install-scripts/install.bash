@@ -19,12 +19,6 @@
 THIS_DIR="$(dirname $(realpath $0))"
 BUILD_DIR="$THIS_DIR/../build"
 
-# check if user is root
-if [ "$(id -u)" -ne 0 ]; then
-        echo "[ERROR] You must have root privileges for the installation."
-        exit 1
-fi
-
 ROOT_DIR="$1"
 
 # number of arguments must not exceed 1
