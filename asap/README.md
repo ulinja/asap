@@ -26,7 +26,7 @@ Stage 3 | System setup (post-chroot)
 Begin a stage by running the following, where `X` is the stage number:
 
 ```bash
-asap_stageX
+asap_stage-X
 ```
 
 You can run your own commands in between stages. With the exception of stage 1,
@@ -42,15 +42,16 @@ asap_check-progress
 
 This will display the contents of the asap checkpoint-file. Scripts listed in the
 checkpoint-file will not be run again. This is useful if something went wrong: you
-can fix the issue and just rerun the stage entirely using `asap_stageX`.
+can fix the issue and just rerun the stage entirely using `asap_stage-X`.
 
 To manually add a script to the checkpoint-file, use:
 
 ```bash
-asap_set-checkpoint my-checkpoint
+asap_set-checkpoint 'myCheckpoint'
 ```
 
-where `my-checkpoint` is a stage in the form `stageX` or the filename of a script.
+where `myCheckpoint` is a stage-checkpoint in the form `stageX` or the filename
+of a script.
 
 ### Packages
 
