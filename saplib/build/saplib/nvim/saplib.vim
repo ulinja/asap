@@ -16,6 +16,9 @@ let g:ale_fixers = {
 
 " The deoplete code completion engine
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-clang'
+Plug 'deoplete-plugins/deoplete-docker'
 
 " A nice status-bar
 Plug 'vim-airline/vim-airline'
@@ -55,14 +58,20 @@ Plug 'potatoesmaster/i3-vim-syntax'
 call plug#end()
 
 """ GENERAL SETTINGS
+" Filetype detection
+filetype on
+filetype plugin on
+filetype indent on
 
 " Tab settings
 set smartindent
 set autoindent
-set tabstop=8 softtabstop=8 shiftwidth=8 expandtab
-autocmd FileType make           setlocal           softtabstop=0 shiftwidth=8 noexpandtab
-autocmd FileType (x)?htm(l)?    setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-autocmd FileType css            setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType py(w)?                     setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType yml                        setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType make,asm                   setlocal           softtabstop=0 shiftwidth=8 noexpandtab
+autocmd FileType html,xhtml,css,xml,xslt    setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType vim,lua,nginx              setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " Color scheme
 syntax on
@@ -70,9 +79,9 @@ syntax on
 " Show hybrid line numbers by default
 set number relativenumber
 
-" Draw column 120
+" Draw column 80
 highlight ColorColumn ctermbg=3
-set colorcolumn=120
+set colorcolumn=80
 set signcolumn=yes
 
 " Disable overlength line wrapping
@@ -124,7 +133,7 @@ inoremap jj <ESC>
 " Search for and open files
 noremap <silent> <F1> :Files /<CR>
 noremap <silent> <F2> :GFiles<CR>
-noremap <silent> <F3> :Files 
+noremap          <F3> :Files 
 
 " Search for lines using fzf
 noremap <silent> <M-F> :Lines<CR>
@@ -133,7 +142,7 @@ noremap <silent> <M-F> :Lines<CR>
 noremap <silent> <F12> :UndotreeToggle<CR>
 
 " use the tab key for deoplete completion
-" TODO
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Move between splits using Ctrl+<vi-keys>
 noremap <silent> <C-H> :wincmd h<CR>

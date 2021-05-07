@@ -65,7 +65,7 @@ npm_packages=(
         'neovim'
         'bash-language-server'
         'fixjson'
-        'sql-lint'
+        #'sql-lint'  # seems to be broken
         'prettier'
 )
 for package in "${npm_packages[@]}"
