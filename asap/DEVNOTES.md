@@ -4,18 +4,19 @@
 
 - [x] Add a Readme.
 - [ ] Host pre-compiled latest ISO
-- [ ] LVM-on-LUKS integration.
 - [ ] Create the default non-root user during installation
+- [ ] LVM-on-LUKS integration.
 - [ ] clean up asap command syntax
+- [ ] Make user interaction `fzf`-based where possible.
 - [ ] Add an asap uninstallation script to remove asap-envvars and scripts after installation
 - [ ] Migrate to a more sensible build system.
-- [ ] Wrap asap_functions in python instead of bash
-- [ ] Make user interaction `fzf`-based where possible.
+- [ ] Wrap asap_functions.sh in python instead of bash
 - [ ] Use archiso-base over archiso-releng as the base profile to make the ISO tiny
 - [ ] Write more packagelist presets:
-        - headless server
-        - i3wm + polybar + rofi desktop
-        - KDE plasma desktop
+- headless server
+- i3wm + polybar + rofi desktop
+- KDE plasma desktop
 
-## Saplib on the asap archiso
+## Implementation Details
 
+### Saplib on the asap archiso
