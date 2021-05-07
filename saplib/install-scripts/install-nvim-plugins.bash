@@ -31,6 +31,7 @@ fi
 python_packages=(
         'pynvim'        # python support for neovim
         'msgpack'       # deoplete dependency
+        'jedi'          # deoplete dependency for python
         'bashate'       # (ale) bash language server
         'pycodestyle'   # (ale) python linter
         'autopep8'      # (ale) python linter
@@ -65,7 +66,7 @@ npm_packages=(
         'neovim'
         'bash-language-server'
         'fixjson'
-        'sql-lint'
+        #'sql-lint'  # seems to be broken
         'prettier'
 )
 for package in "${npm_packages[@]}"

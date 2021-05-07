@@ -137,7 +137,7 @@ unset -v SRC_FILE ; unset -v DST_FILE
 if [ -z "$ROOT_DIR" ]; then
         # neovim plugins can only be installed from within a system
         $THIS_DIR/install-nvim-plugins.bash
-        if [ "?" -ne 0 ]; then
+        if [ "$?" -ne 0 ]; then
             echo "[ERROR] Something went wrong while installing the saplib neovim plugins"
             exit 1
         fi
