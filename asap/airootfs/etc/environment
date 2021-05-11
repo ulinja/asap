@@ -1,0 +1,24 @@
+#@ASAP_START
+# sets asap environment variables
+ASAP_CONFIG=/usr/local/lib/asap/ASAP_CONFIG
+ASAP_FUNCTIONS=/usr/local/lib/asap/resources/asap_functions.sh
+#@ASAP_END
+
+#@SAPLING_START
+# default programs
+EDITOR=nvim
+VISUAL=nvim
+PAGER=bat --paging=always
+
+# misc environment variables
+HISTFILESIZE=10000
+
+# you can source this variable to access saplib's bash functions
+SAPLIB_BASH=/usr/local/lib/saplib/bash/saplib.bash
+
+# controls globally whether saplib's debug messages are printed
+SAPLIB_DEBUGMESSAGES=false
+
+# root directory for cargo packages
+CARGO_HOME=/usr/local/bin/cargo
+#@SAPLING_END

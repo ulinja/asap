@@ -1,0 +1,120 @@
+# baseline packages
+base
+cloud-init
+linux
+mkinitcpio
+mkinitcpio-archiso
+openssh
+syslinux
+
+# saplib packages
+bat
+exa
+fish
+fzf
+git
+neovim
+perl-rename
+python
+ranger
+
+# extra packages
+amd-ucode
+arch-install-scripts
+b43-fwcutter
+base-devel
+broadcom-wl
+btrfs-progs
+crda
+curl
+dhcpcd
+diffutils
+dosfstools
+edk2-shell
+efibootmgr
+ethtool
+exfatprogs
+gnu-netcat
+gpm
+gptfdisk
+hdparm
+intel-ucode
+ipw2100-fw
+ipw2200-fw
+iwd
+linux-atm
+linux-firmware
+lsscsi
+lvm2
+lynx
+man-db
+man-pages
+mdadm
+memtest86+
+mtools
+nfs-utils
+nmap
+ntfs-3g
+nvme-cli
+pacman-contrib
+parted
+reflector
+rsync
+smartmontools
+squashfs-tools
+systemd-resolvconf
+terminus-font
+usb_modeswitch
+usbmuxd
+usbutils
+vi
+wget
+wireless-regdb
+wireless_tools
+wpa_supplicant
+
+### NOT NEEDED from releng
+# bind-tools
+# clonezilla
+# darkhttpd
+# ddrescue
+# dhclient
+# dmraid
+# dnsmasq
+# f2fs-tools
+# fatresize
+# fsarchiver
+# gpart
+# grml-zsh-config
+# irssi
+# jfsutils
+# kitty-terminfo
+# lftp
+# mc
+# mkinitcpio-nfs-utils
+# modemmanager
+# nbd
+# ndisc6
+# nilfs-utils
+# openconnect
+# openvpn
+# partclone
+# partimage
+# ppp
+# pptpclient
+# reiserfsprogs
+# rp-pppoe
+# rxvt-unicode-terminfo
+# sdparm
+# sg3_utils
+# sof-firmware
+# sudo
+# tcpdump
+# termite-terminfo
+# testdisk
+# tmux
+# udftools
+# vpnc
+# wvdial
+# xfsprogs
+# xl2tpd
