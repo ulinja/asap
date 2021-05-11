@@ -1,0 +1,32 @@
+# AUR package list for desktop environments
+# (must to be installed with yay)
+
+# audio drivers
+pamix-git
+
+# misc utilities
+xcwd-git
+xgrabcolor
+
+# text editors
+sublime-text-3
+
+# fonts
+nerd-fonts-complete
+
+# media viewers
+spotify
+
+# desktop environment
+clearine-git
+#lightdm-slick-greeter
+plymouth-git
+polybar-git
+rofi-git
+xgetres
+
+# media editors
+#webcamoid
+
+# messaging
+whatsdesk-bin

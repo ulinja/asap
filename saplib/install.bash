@@ -1,1 +1,0 @@
-install-scripts/install.bash

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# ----------------------------------------------------------------------------- #
+# This stage includes all steps between chrooting into the new system from the
+# live medium up until a bootable base system is configured.
+# ----------------------------------------------------------------------------- #
+# @file    asap_stage-3
+# @version 1.0
+# @author  cybork
+# @email   
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+##### source the necessary libraries
+libraries=(
+        "$SAPLIB_BASH"
+        "$ASAP_CONFIG"
+        "$ASAP_FUNCTIONS"
+)
+for lib in "${libraries[@]}"; do
+        source $lib
+        if [ "$?" -ne 0 ]; then
+                echo "[EXCEPTION] Failed to source $lib."
+                exit 1
+        fi
+done
+
+################################# BEGIN SCRIPT ##################################
+# TODO automate creating a non-root user
+# TODO automate disk encryption handling
+
+run_stage 3
+if [ "$?" -ne 0 ]; then
+        exit 1
+fi
+
+echo ""
+success_message "Sapling setup is now complete!"
+info_message "Consider creating a non-root user account."
+echo ""
+warning_message "Don't forget to add the relevant initramfs hooks to '/etc/mkinitcpio.conf' and '/etc/default/grub' if you are using disk decryption on boot."
+info_message "Once you have done this, rerun '/usr/local/lib/asap/stages/stage3/3-07_generate-initramfs-image.sh' and '/usr/local/lib/asap/stages/stage3/3-08_grub-config.sh'"
+echo ""
+info_message "You can exit the chroot now by running 'exit' and then reboot into your new system!"

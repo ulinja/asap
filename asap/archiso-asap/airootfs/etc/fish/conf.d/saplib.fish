@@ -1,1 +1,0 @@
-/usr/local/lib/saplib/fish/saplib.fish

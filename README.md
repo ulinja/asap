@@ -1,42 +1,81 @@
-# Introduction
+# ASAP
 
-Sapling is an extended base install of Arch Linux. It includes a fully automated,
-extensible installation suite called [ASAP](/asap/README.md) and runs based on
-the [Saplib](/saplib/README.md) multi-language library.
+*Version 0.7.0-alpha*
 
-Sapling provides a modern base for any server or desktop linux system, as
-'vanilla' Arch Linux does, albeit slightly extended with **system-wide**
-integration of certain features, among which are:
+## About
 
-- the `fish` shell as the interactive shell
-- the `bat` pager utility
-- the `exa` file discovery utility
-- fast commandline navigation using `fzf`
-- a coding-oriented flavor of the `neovim` text editor
+ASAP is an automated installation suite for Arch Linux, simplifying a complete
+installation into typing a few intuitive commands and watching the process on your
+terminal:
 
-This list will surely grow bigger with time, but Sapling will always be a minimal
-Linux base system (minimal with regards to hardware from within the last decade).
+![ASAP Demo](/img/stage3.gif)
 
-Using the above utilities is not *required*: you can use the ASAP installer and
-not install Saplib / you can install Saplib on any existing Arch linux system
-without the use of ASAP.
+### Getting started
 
-*NOTE: The fish shell is the default login shell in Sapling, but bash and zsh are
-also fully supported, and Saplib provides many common functions/aliases for all
-three shells.*
+ASAP runs in distinct stages:
 
-## Installation
+Stage Number | Stage Overview
+------------ | --------------
+Stage 0 | Initialize installation resources
+Stage 1 | Drive partitioning, formatting & mounting
+Stage 2 | Bootstrapping (pre-chroot)
+Stage 3 | System setup (post-chroot)
 
-This is where Sapling shines and it is the the original reason for Sapling's inception!
+![ASAP Demo](/img/stage0.gif)
 
-Sapling is installed through the ASAP commandline-based installation suite.
-ASAP is very modular in nature while still being fully automated.
-See [here](/asap/README.md) for a description of what ASAP can do.
+Begin a stage by running the following, where `X` is the stage number:
 
-## Roadmap
+```bash
+asap_stage-X
+```
+
+You can run your own commands in between stages. With the exception of stage 1,
+no manual intervention is required for a standard installation.
+
+## How it works
+
+To check which installation scripts have run successfully, run:
+
+```bash
+asap_check-progress
+```
+
+This will display the contents of the asap checkpoint-file. Scripts listed in the
+checkpoint-file will not be run again. This is useful if something went wrong: you
+can fix the issue and just rerun the stage entirely using `asap_stage-X`.
+
+To manually add a script to the checkpoint-file, use:
+
+```bash
+asap_set-checkpoint 'myCheckpoint'
+```
+
+where `myCheckpoint` is a stage-checkpoint in the form `stageX` or the filename
+of a script.
+
+### Packages
+
+Asap comes with a few package-lists by default. They define which packages are installed
+on your base system and can be freely modified. By default, they are limited to
+a minimal list of linux utilities, including the [Saplib](https://github.com/ulinja/saplib) library.
+
+## Customization
+
+ASAP is customizable and extensible: you can **bake your own scripts right into the
+installation medium**, and they will be executed and logged automatically by ASAP.
+Building your own installation medium is very easy with the provided ASAP
+archiso-profile and Makefile.
+Simply add files or edit existing ones to the `asap/airootfs/` filesystem
+and run `make build`.
+Adding bash scripts to any of the folders in `asap/airootfs/usr/local/lib/asap/stages/`
+will make ASAP run them automatically during that stage.
+You can easily add an SSH key or even a WiFi configuration to the ISO using the
+[convenience-scripts](/convenience-scripts/), which enables SSH access to the live
+system without ever connecting a monitor or keyboard.
+Building an installation image is limited to Arch-based systems though, and requires
+the [archiso](https://wiki.archlinux.org/index.php/Archiso) package to be installed.
+
+### Roadmap
 
 - LVM-on-LUKS Full Disk Encryption Support (almost finished)
-- cross-system configuration management
-- Ansible Integration
-- 'ufw' firewall integration
-- Many many useful utilities and integrations for distinguished CLI enjoyers
+- Option to display previews of what each script in a stage does prior to running it
