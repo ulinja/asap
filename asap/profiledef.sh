@@ -20,9 +20,7 @@ file_permissions=(
   ["/usr/local/bin/asap_stage-0"]="0:0:744"
   ["/usr/local/bin/choose-mirror"]="0:0:755"
   ["/usr/local/bin/color"]="0:0:755"
-  ["/usr/local/bin/color"]="0:0:755"
   ["/usr/local/bin/installation-guide"]="0:0:755"
-  ["/usr/local/lib/asap/stages/stage0/0-00_asap-init.sh"]="0:0:744"
   ["/usr/local/lib/asap/stages/stage0/0-00_asap-init.sh"]="0:0:744"
   ["/var/lib/iwd/"]="0:0:700"
 )

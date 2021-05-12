@@ -30,7 +30,7 @@ embed-psk:
 # removes all WiFi preshared keys from the ASAP profile
 .PHONY: clean-psk
 clean-psk:
-	rm -f $(PROFILE_DIR)/airootfs/var/lib/iwd/*
+	rm -f $(PROFILE_DIR)/airootfs/var/lib/iwd/*.psk
 
 # embed an authorized SSH public key on the ASAP profile
 .PHONY: embed-sshkey
