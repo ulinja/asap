@@ -2,7 +2,6 @@
 
 # Writes an ISO image to the block device specified as the first argument.
 # USE WITH CAUTION this is a dangerous script
-# Dependencies: fzf
 THIS_DIR=$(dirname $(realpath $0))
 BUILD_DIR="$THIS_DIR/../build"
 
@@ -62,8 +61,8 @@ if [ "$(lsblk $1 | wc -l)" -gt 2 ];then
         exit 1
 fi
 
-warning_message "You are about to write the image '$(basename $INPUT_FILE)' to '$1'."
-warning_message "Data on '$1' will be overwritten irrevocably!"
+echo "[WARNING] You are about to write the image '$(basename $INPUT_FILE)' to '$1'."
+echo "[WARNING] Data on '$1' will be overwritten irrevocably!"
 prompt_yes_or_no "ARE YOU SURE???"
 if [ "$?" -ne 0 ];then
         echo "[INFO] Aborting..."
