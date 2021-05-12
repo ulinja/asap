@@ -13,7 +13,4 @@ SAPLIB_BASH=/usr/local/lib/saplib/bash/saplib.bash
 
 # controls globally whether saplib's debug messages are printed
 SAPLIB_DEBUGMESSAGES=false
-
-# root directory for cargo packages
-CARGO_HOME=/usr/local/bin/cargo
 #@SAPLING_END

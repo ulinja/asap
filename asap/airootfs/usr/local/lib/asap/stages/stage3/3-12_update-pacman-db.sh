@@ -24,13 +24,13 @@ done
 
 ################################# BEGIN SCRIPT ##################################
 
-info_message "Updating pacman db..."
+info_message "Updating pacman database..."
 
 pacman -Fy
 if [ "$?" -ne 0 ]; then
-        exception_message "Failed to update pacman core db"
+        exception_message "Failed to update pacman core database."
         exit 1
 fi
 
-success_message "iwd daemon will be active upon reboot."
+success_message "The pacman database was updated."
 exit 0

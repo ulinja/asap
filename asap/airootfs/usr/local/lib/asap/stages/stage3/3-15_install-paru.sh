@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
-# This script installs paru on the local machine.
-# Should be run by the non-root admin user.
+# This script installs paru, an AUR package manager, on the local machine.
+# Should be run by the non-root admin user. Must not be run by root.
+# XXX Assumes that a user with the UID 1000 has been created.
 # ----------------------------------------------------------------------------- #
 # @file    3-00_set-timezone.sh
 # @version 1.0
@@ -25,40 +26,41 @@ done
 
 ################################# BEGIN SCRIPT ##################################
 
-# make sure user is not root
-if [ $(id -u) -eq 0 ]
-then
-        error_message 'Do not run the installation as root!'
-        exit 1
+# check if a user with UID 1000 exists
+grep 'x:1000:' /etc/passwd 1>/dev/null 2>/dev/null
+if [ "$?" -ne 0 ]; then
+    error_message "No user found for UID 1000. Have you created a non-root user?"
+    exit 1
+fi
+
+# get user 1000's username
+NON_ROOT_USER="$(getent passwd "1000" | cut -d ':' -f 1)"
+
+ORIG_DIR="$(pwd)"
+cd /home/"$NON_ROOT_USER"
+if [ "$?" -ne 0 ]; then
+    error_message "Directory not found: '/home/$NON_ROOT_USER'."
+    exit 1
 fi
 
 info_message "Downloading paru..."
-git clone 'https://aur.archlinux.org/paru.git'
+sudo -u "$NON_ROOT_USER" git clone 'https://aur.archlinux.org/paru.git'
 if [ "$?" -ne 0 ]; then
         error_message "Failed to clone paru repository."
         exit 1
 fi
 
 cd paru || exit 1
-
 info_message "Installing paru..."
-makepkg -scirf
+sudo -u "$NON_ROOT_USER" makepkg -scirf
 if [ "$?" -ne 0 ]; then
         exception_message "Failed to install paru."
         exit 1
 fi
-
 # remove cloned repo folder
 cd ..
-rm -rvf paru
+rm -rf paru
 
-# TODO copy paru config file
-
-# update paru using paru (yo dawg i heard you like paru)
-paru -Sy paru
-if [ "$?" -ne 0 ]; then
-        exception_message "Failed to update paru."
-        exit 1
-fi
+cd "$ORIG_DIR"
 
 success_message 'paru has been installed.'

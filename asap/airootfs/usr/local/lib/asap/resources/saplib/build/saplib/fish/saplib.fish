@@ -7,10 +7,10 @@ end
 # Enable vi-mode by default
 fish_vi_key_bindings
 
-# set the cargo package manager installation directory
-set --global --export CARGO_HOME /usr/local/lib/cargo
-# add the cargo binaries directory to PATH
-fish_add_path --global /usr/local/lib/cargo/bin
+# cargo config directory
+set --global --export CARGO_HOME $HOME/.config/cargo
+# cargo binary installation target directory
+set --global --export CARGO_INSTALL_ROOT $HOME/.local/bin
 
 # Source all of saplib's fish functions
 for scriptfile in /usr/local/lib/saplib/fish/src/*.fish

@@ -65,9 +65,11 @@ jre-openjdk
 npm
 python
 python-pip
+python-wheel
 #python2
 #python2-pip
 #ruby
+rust
 
 ### development
 #cgdb

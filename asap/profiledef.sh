@@ -2,7 +2,7 @@
 # shellcheck disable=SC2034
 
 iso_name="asap"
-iso_version="0.7.0-alpha"
+iso_version="0.7.3-alpha"
 iso_publisher="ulinja <ulinja@pm.me>"
 iso_application="ASAP Arch Linux Installer"
 iso_label="ASAP_$iso_version"

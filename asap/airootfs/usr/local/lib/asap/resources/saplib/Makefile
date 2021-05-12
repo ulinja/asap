@@ -4,7 +4,7 @@ SAPLIB_BINARY_DEPS_DIR := $(BUILD_DIR)/dependencies
 SETUP_CONFIG := ./saplib.conf
 
 SAPLIB_PACMAN_DEPS := bat exa fish fzf git neovim perl-rename python rsync trash-cli
-NVIM_PACMAN_DEPS := clang cmake jdk-openjdk nodejs npm openjdk-doc prettier python-jedi python-pip python-pylint python-pynvim texlive-most yarn
+NVIM_PACMAN_DEPS := clang cmake jdk-openjdk nodejs npm openjdk-doc prettier python-jedi python-pip python-pylint python-pynvim python-wheel texlive-most yarn
 NVIM_NPM_DEPS := bash-language-server neovim node-sql-parser sql-formatter
 
 ##### INSTALLATION #####
