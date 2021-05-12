@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------- #
-# This script installs yay on the local machine.
+# This script installs paru on the local machine.
 # Should be run by the non-root admin user.
-# TODO install paru instead of yay???
 # ----------------------------------------------------------------------------- #
 # @file    3-00_set-timezone.sh
 # @version 1.0
@@ -33,33 +32,33 @@ then
         exit 1
 fi
 
-info_message "Downloading yay..."
-git clone https://aur.archlinux.org/yay.git
+info_message "Downloading paru..."
+git clone 'https://aur.archlinux.org/paru.git'
 if [ "$?" -ne 0 ]; then
-        error_message "Failed to clone yay repository."
+        error_message "Failed to clone paru repository."
         exit 1
 fi
 
-cd yay || exit 1
+cd paru || exit 1
 
-info_message "Installing yay..."
+info_message "Installing paru..."
 makepkg -scirf
 if [ "$?" -ne 0 ]; then
-        exception_message "Failed to install yay."
+        exception_message "Failed to install paru."
         exit 1
 fi
 
 # remove cloned repo folder
 cd ..
-rm -rvf yay
+rm -rvf paru
 
-# TODO copy yay config file
+# TODO copy paru config file
 
-# update yay using yay (yo dawg i heard you like yay)
-yay -S yay
+# update paru using paru (yo dawg i heard you like paru)
+paru -Sy paru
 if [ "$?" -ne 0 ]; then
-        exception_message "Failed to update yay."
+        exception_message "Failed to update paru."
         exit 1
 fi
 
-success_message 'Yay has been installed.'
+success_message 'paru has been installed.'
