@@ -61,6 +61,18 @@ Plug 'potatoesmaster/i3-vim-syntax'
 " Support for jsonc config files
 Plug 'kevinoid/vim-jsonc'
 
+" Gruvbox color scheme
+"Plug 'morhetz/gruvbox'
+
+" Jellybeans color scheme
+"Plug 'nanotech/jellybeans.vim'
+
+" Oceanic-next color scheme
+Plug 'mhartington/oceanic-next'
+
+" Vim Airline themes
+"Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 
 """ SETTINGS
@@ -73,6 +85,36 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Numpy docstrings for pydocstring
 let g:pydocstring_formatter = 'numpy'
+
+" gruvbox-specific
+"set termguicolors
+"let g:gruvbox_italic=1
+"colorscheme gruvbox
+
+" jellybeans-specific
+"set termguicolors
+"let g:jellybeans_use_term_italics = 1
+"let g:jellybeans_overrides = {
+"\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+"\}
+"if has('termguicolors') && &termguicolors
+"    let g:jellybeans_overrides['background']['guibg'] = 'none'
+"endif
+"colorscheme jellybeans
+
+" oceanic-specific
+"set termguicolors
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+"let g:airline_theme='oceanicnext'
+"colorscheme OceanicNext
+"hi Normal guibg=NONE ctermbg=NONE
+"hi LineNr guibg=NONE ctermbg=NONE
+"hi SignColumn guibg=NONE ctermbg=NONE
+"hi EndOfBuffer guibg=NONE ctermbg=NONE
+
+" airline theme
+"let g:airline_theme='deus'
 
 
 """ KEYBINDINGS

@@ -47,3 +47,9 @@ function cdb --description "Move backwards in the directory tree along the curre
             cd $target_dir
     end
 end
+
+function ranger --wraps ranger --description "Exit ranger into the last opened directory."
+    /usr/bin/ranger --choosedir=$HOME/.local/share/ranger/rangerdir
+    set LASTDIR (cat $HOME/.local/share/ranger/rangerdir)
+    cd $LASTDIR
+end

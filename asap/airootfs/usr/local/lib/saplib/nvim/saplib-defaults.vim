@@ -25,8 +25,10 @@ colorscheme slate
 set number relativenumber
 
 " Draw column 80
-highlight ColorColumn ctermbg=3
-set colorcolumn=80
+"highlight ColorColumn ctermfg=2
+"highlight ColorColumn
+"let &colorcolumn=join(range(81,256),",")
+"set colorcolumn=80
 set signcolumn=yes
 
 " Disable overlength line wrapping

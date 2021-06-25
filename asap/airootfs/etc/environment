@@ -8,7 +8,8 @@ ASAP_FUNCTIONS=/usr/local/lib/asap/resources/asap_functions.sh
 # default programs
 EDITOR=nvim
 VISUAL=nvim
-PAGER=bat --paging=always
+PAGER=bat
+MANPAGER="nvim -c 'set ft=man' -"
 
 # misc environment variables
 HISTFILESIZE=10000

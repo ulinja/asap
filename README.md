@@ -1,6 +1,6 @@
 # ASAP
 
-*Version 0.7.0-alpha*
+*Version 0.7.4-alpha*
 
 ## About
 

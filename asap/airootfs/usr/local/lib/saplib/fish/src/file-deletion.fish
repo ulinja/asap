@@ -5,7 +5,7 @@ function del --wraps rm --description "Recursively and irrevocably deletes the s
         rm --force --recursive --verbose -I $argv
 end
 
-function shred --wraps shred --description "Irrevocably overwrites the specified files with zeroes and removes them."
+function shrz --wraps shred --description "Irrevocably overwrites the specified files with zeroes and removes them."
         # TODO add user confirmation
         shred --force --remove --zero --verbose $argv
 end
