@@ -23,6 +23,7 @@ amd-ucode
 arch-install-scripts
 b43-fwcutter
 base-devel
+borg
 broadcom-wl
 btrfs-progs
 crda
