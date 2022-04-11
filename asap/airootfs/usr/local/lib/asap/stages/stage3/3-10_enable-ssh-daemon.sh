@@ -33,6 +33,18 @@ if [ "$?" -ne 0 ]; then
         exit 0
 fi
 
+prompt_yes_or_no "Do you want to disable ssh password authentication? (Recommended)"
+if [ "$?" -ne 0 ]; then
+        info_message "Password authentication is enabled."
+else
+        sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/g' /etc/ssh/sshd_config
+        if [ "$?" -ne 0 ]; then
+                exception_message "Failed to disable password authentication in '/etc/ssh/sshd_config'!"
+                exit 1
+        fi
+        info_message "Password authentication was disabled."
+fi
+
 systemctl enable sshd.service
 if [ "$?" -ne 0 ]; then
         exception_message "Failed to enable 'sshd.service'"
