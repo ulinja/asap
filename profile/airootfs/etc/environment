@@ -1,0 +1,6 @@
+# Default programs
+EDITOR=nvim
+VISUAL=nvim
+
+# Misc environment variables
+HISTFILESIZE=10000
