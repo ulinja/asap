@@ -1,6 +1,1 @@
-/build/*
-/asap/airootfs/root/.ssh/*
-/asap/airootfs/var/lib/iwd/*
-/credentials/ssh-public-key/*
-/credentials/wpa-preshared-key/*
 /tags

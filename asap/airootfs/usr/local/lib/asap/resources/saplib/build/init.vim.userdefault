@@ -1,4 +1,0 @@
-" Source saplib's default neovim settings
-source /usr/local/lib/saplib/nvim/saplib-defaults.vim
-" Source saplib's default neovim plugins
-source /usr/local/lib/saplib/nvim/saplib-plugins.vim
