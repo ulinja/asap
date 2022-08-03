@@ -12,6 +12,10 @@ qemu-guest-agent
 syslinux
 virtualbox-guest-utils-nox
 
+# custom packages
+#rmtrash
+#autojump
+
 # extra packages
 arch-install-scripts
 b43-fwcutter
@@ -67,6 +71,8 @@ smartmontools
 squashfs-tools
 systemd-resolvconf
 terminus-font
+thefuck
+tldr
 trash-cli
 usb_modeswitch
 usbmuxd
