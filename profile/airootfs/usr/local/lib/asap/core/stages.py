@@ -104,7 +104,7 @@ class Step(AbstractStep):
     """An installation step is an atomic executable process within a Stage."""
 
     def __init__(self, name, executable, *args, checkpoint=None, **kwargs):
-        super().__init__(checkpoint)
+        super().__init__(name=name, checkpoint=checkpoint)
 
         # make sure executable is a callable
         if not callable(executable):
@@ -113,7 +113,8 @@ class Step(AbstractStep):
         self.executable = executable
         self.executable_args = args
         # delete parent class kwargs
-        del kwargs['checkpoint']
+        if 'checkpoint' in kwargs:
+            del kwargs['checkpoint']
         self.executable_kwargs = kwargs
 
     def execute(self):
@@ -141,7 +142,7 @@ class Stage(AbstractStep):
     """An installation Stage represents a set of individual steps."""
 
     def __init__(self, name, steps, checkpoint=None):
-        super().__init__(checkpoint)
+        super().__init__(name=name, checkpoint=checkpoint)
 
         # make sure name is a non-empty string
         if not isinstance(name, str):
