@@ -171,19 +171,15 @@ class Stage(AbstractStep):
 
         super().execute()
 
-        for step in self.steps:
+        for step in self.steps.values():
             if step.checkpoint.state is not CheckpointState.SUCCEEDED:
                 try:
                     step.execute()
                 except BaseException as exception:
                     self.checkpoint.set_failed()
                     raise self.ExecutionFailedError() from exception
-                finally:
-                    # TODO serialize Checkpoints
-                    pass
 
         self.checkpoint.set_succeeded()
-        # TODO serialize Checkpoints
 
     def get_checkpoint_states(self):
         """Returns a dict mapping each Step's name to its Checkpoint state."""
