@@ -76,14 +76,9 @@ class AbstractStep(ABC):
         """
 
     @abstractmethod
-    def __init__(self, name, checkpoint=None):
-        if checkpoint is None:
-            # create a NOT_STARTED Checkpoint
-            self.checkpoint = Checkpoint()
-        else:
-            if not isinstance(checkpoint, Checkpoint):
-                raise TypeError(f"Expected a {Checkpoint}.")
-            self.checkpoint = checkpoint
+    def __init__(self, name):
+        # create a NOT_STARTED Checkpoint
+        self.checkpoint = Checkpoint()
 
         # make sure name is a non-empty string
         if not isinstance(name, str):
@@ -103,8 +98,8 @@ class AbstractStep(ABC):
 class Step(AbstractStep):
     """An installation step is an atomic executable process within a Stage."""
 
-    def __init__(self, name, executable, *args, checkpoint=None, **kwargs):
-        super().__init__(name=name, checkpoint=checkpoint)
+    def __init__(self, name, executable, *args, **kwargs):
+        super().__init__(name)
 
         # make sure executable is a callable
         if not callable(executable):
@@ -112,9 +107,6 @@ class Step(AbstractStep):
         # save args and kwargs for executable
         self.executable = executable
         self.executable_args = args
-        # delete parent class kwargs
-        if 'checkpoint' in kwargs:
-            del kwargs['checkpoint']
         self.executable_kwargs = kwargs
 
     def execute(self):
@@ -141,8 +133,11 @@ class Step(AbstractStep):
 class Stage(AbstractStep):
     """An installation Stage represents a set of individual steps."""
 
-    def __init__(self, name, steps, checkpoint=None):
-        super().__init__(name=name, checkpoint=checkpoint)
+    class AmbiguousStepNameException(ValueError):
+        """Raised when two Steps with the same name are added to a Stage."""
+
+    def __init__(self, name, steps):
+        super().__init__(name)
 
         # make sure name is a non-empty string
         if not isinstance(name, str):
@@ -151,13 +146,20 @@ class Stage(AbstractStep):
             raise ValueError("Name cannot be empty.")
         self.name = name
 
-        # make sure we got a list of Steps
+        # make sure we got a list
         if not isinstance(steps, list):
             raise TypeError(f"Expected a {list}.")
+        # create our steps dict
+        self.steps = {}
         for step in steps:
             if not isinstance(step, Step):
                 raise TypeError(f"Expected an object of type {Step}.")
-        self.steps = steps
+            if step.name in self.steps:
+                raise self.AmbiguousStepNameException(
+                    f"Tried to add two or more Steps with the name "
+                    f"'{step.name}' to this Stage."
+                )
+            self.steps[step.name] = step
 
     def execute(self):
         """Executes all Steps in this Stage which are not successful yet.
@@ -182,3 +184,62 @@ class Stage(AbstractStep):
 
         self.checkpoint.set_succeeded()
         # TODO serialize Checkpoints
+
+    def get_checkpoint_states(self):
+        """Returns a dict mapping each Step's name to its Checkpoint state."""
+
+        checkpoint_states = dict()
+
+        for name, step in self.steps.items():
+            checkpoint_states[name] = step.checkpoint.state.name
+
+        return checkpoint_states
+
+    def set_checkpoint_states(self, input_dict):
+        """Sets each Step's checkpoint state using the input dict.
+
+        The input dict must contain each Step's name as a key and a
+        CheckpointState-value as its respective value.
+        """
+
+        # make sure the input is a dict
+        if not isinstance(input_dict, dict):
+            raise TypeError(f"Expected a {dict}.")
+        # make sure the entry count makes sense
+        if len(input_dict) != len(self.steps):
+            raise ValueError(
+                f"Unexpected key count in checkpoint dict: "
+                f"expected {len(self.steps)} but got {len(input_dict)}."
+            )
+        # make sure all keys and values are valid
+        for step_name, checkpoint_state_name in input_dict.items():
+            # make sure key is a string
+            if not isinstance(step_name, str):
+                raise TypeError(
+                    f"Unexpected type in checkpoint dict: "
+                    f"expected a {str}."
+                )
+            # make sure this Stage has a step by that name
+            if not step_name in self.steps:
+                raise ValueError(
+                    f"Tried to set the checkpoint for a step which is not "
+                    f"in this Stage: '{step_name}'."
+                )
+            # make sure value is a string
+            if not isinstance(checkpoint_state_name, str):
+                raise TypeError(
+                    f"Unexpected type in checkpoint dict: "
+                    f"expected a {str}."
+                )
+            # make sure value string is a valid CheckpointState-value
+            try:
+                CheckpointState[checkpoint_state_name]
+            except KeyError as exception:
+                raise ValueError(
+                    f"Invalid checkpoint state in checkpoint dict: "
+                    f"'{checkpoint_state_name}'."
+                ) from exception
+
+        # set each Step's checkpoint state using the input dict
+        for step_name, checkpoint_state_name in input_dict.items():
+            self.steps[step_name].checkpoint.state = CheckpointState[checkpoint_state_name]
