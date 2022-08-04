@@ -1,4 +1,11 @@
-"""This module defines installation stages and checkpoints."""
+"""This module defines the different stages and checkpoints of an installation.
+
+The installation process is split into Stages, which themselves are split into
+Steps. Both Stages and steps can be executed by calling their execute() method.
+Depending on whether execution has been attempted previously, and depending on
+its success, each Stage's and each Step's execution state is represented in the
+form of a Checkpoint.
+"""
 
 from abc import ABC, abstractmethod
 from enum import Enum, unique
@@ -6,21 +13,34 @@ from enum import Enum, unique
 
 @unique
 class CheckpointState(Enum):
-    """The completion state of a checkpoint.
+    """Represents the state of a checkpoint.
 
-    Checkpoints can have three possible completion states:
-    - NOT_STARTED: the Step for this checkpoint has never been attempted before
-    - FAILED: the Step for this checkpoint has been attempted before and failed
-    - SUCCEEDED: the Step for this checkpoint has been successfully executed
+    Checkpoints can have three possible states:
+    - NOT_STARTED: the execution associated with this checkpoint has not been
+      attempted yet.
+    - FAILED: the execution associated with this checkpoint has been attempted
+      and did not succeed yet
+    - SUCCEEDED: the execution associated with this checkpoint was successfully
+      completed
     """
 
-    NOT_STARTED = "not_started"
+    NOT_STARTED = "not started"
     FAILED = "failed"
     SUCCEEDED = "succeeded"
 
 
 class Checkpoint:
-    """A checkpoint represents a serializable state of an installation step.
+    """A Checkpoint represents the execution history Stage or Step.
+
+    Parameters
+    ----------
+    state : CheckpointState, optional
+        The state which this Checkpoint will have upon creation.
+
+    Attributes
+    ----------
+    state : CheckpointState
+        The execution state which this Checkpoint represents.
     """
 
     def __init__(self, state=None):
@@ -43,14 +63,13 @@ class Checkpoint:
 
 
 class AbstractStep(ABC):
-    """A abstract class representing named step in a sequential process.
+    """A abstract base class for Stage and Step.
 
-    The object represented by this class (a Step or a Stage) can be executed
-    by invoking the execute() method.
-    The object has a name property which is a non-empty string.
+    The objects represented by this class can be executed by invoking their
+    execute() method.
     The success state of the most recent execution is saved in the form of a
     Checkpoint.
-    If the execution of the object has never been attempted, the Checkpoint is
+    If the execution of the object has never been attempted, its Checkpoint is
     in the NOT_STARTED state.
     If something fails during the execution of the object, its Checkpoint's
     state should be set to FAILED and an ExecutionFailedError should be
@@ -70,9 +89,8 @@ class AbstractStep(ABC):
     class AlreadySuccessfulException(Exception):
         """Thrown when execute() has previously succeeded and is reinvoked.
 
-        This exception is thrown by the constructor of this class.
-        Concrete child classes need not raise it, but should call the parent
-        constructor.
+        Concrete child classes need not raise it directly, but must call
+        super().execute().
         """
 
     @abstractmethod
@@ -89,14 +107,46 @@ class AbstractStep(ABC):
 
     @abstractmethod
     def execute(self):
-        """Asserts that no execution is allowed if it was successful before."""
+        """Begins the execution of this Stage or Step."""
 
         if self.checkpoint is CheckpointState.SUCCEEDED:
             raise self.AlreadySuccessfulException()
 
 
 class Step(AbstractStep):
-    """An installation step is an atomic executable process within a Stage."""
+    """A Step is an atomic installation step within a Stage.
+
+    Steps take a callable, along with any number of arguments and keyword
+    arguments for that callable, during construction.
+    When a Step's execute() method is called, the args and kwargs supplied
+    to the Step's constructor are passed to its callable, and the callable is
+    executed. If any Exception is raised during the execution, the Step's
+    checkpoint is set to the FAILED state, and the Step re-raises the Exception
+    as an ExecutionFailedError. If no exception is raised, the Step's
+    Checkpoint state is set to SUCCEEDED.
+
+    Parameters
+    ----------
+    name : str
+        The name of this Step.
+    executable : callable
+        The callable which will be executed when this Step is executed.
+    *args : anything
+        Any number of positional arguments which will be passed to executable.
+    **kwargs : anything
+        Any number of keyword arguments which will be passed to executable.
+
+    Attributes
+    ----------
+    name : str
+        The name of this Step.
+    executable : callable
+        The callable which will be executed when this Step is executed.
+    executable_args : tuple
+        The positional arguments which will be passed to executable.
+    executable_kwargs : dict
+        The keyword arguments which will be passed to executable.
+    """
 
     def __init__(self, name, executable, *args, **kwargs):
         super().__init__(name)
@@ -110,7 +160,21 @@ class Step(AbstractStep):
         self.executable_kwargs = kwargs
 
     def execute(self):
-        """Attempts to execute this Step's callable and return its result."""
+        """Attempts to execute this Step's callable and returns its result.
+
+        Returns
+        -------
+        retval : anything
+            Whatever this Step's callable returns.
+
+        Raises
+        ------
+        AlreadySuccessfulException
+            If execute() is called on a Step which has already succeeded.
+        ExecutionFailedError
+            If any kind of exception is raised during execution of this Step's
+            callable.
+        """
 
         super().execute()
 
@@ -122,16 +186,44 @@ class Step(AbstractStep):
         except BaseException as exception:
             self.checkpoint.set_failed()
             raise self.ExecutionFailedError() from exception
-        finally:
-            # TODO maybe serialize checkpoint
-            pass
 
         self.checkpoint.set_succeeded()
         return retval
 
 
 class Stage(AbstractStep):
-    """An installation Stage represents a set of individual steps."""
+    """An installation Stage represents a sequence of individual Steps.
+
+    When a Stage is executed, each Step of it is executed suqbsequently in the
+    order in which they were supplied during the Stage's construction.
+    Steps which are aleady marked as SUCCEEDED are skipped.
+    If an ExecutionFailedError is raised during the execution of any Step,
+    this Stage's Checkpoint is set to FAILED, and the ExecutionFailedError is
+    re-raised.
+    If all Steps were executed successfully, this Stage's Checkpoint is set to
+    SUCCEEDED.
+
+    Parameters
+    ----------
+    name : str
+        The name of this Stage.
+    steps : list of Steps
+        The Steps which will be executed when the Stage is executed.
+        The list of Steps cannot contain any Steps which share the same name.
+
+    Attributes
+    ----------
+    name : str
+        The name of this Stage.
+    steps : dict
+        A mapping containing Step's names as keys and the Step itself as
+        the respective value.
+
+    Raises
+    ------
+    AmbiguousStepNameException
+        If two or more Steps in the list of steps share the same name.
+    """
 
     class AmbiguousStepNameException(ValueError):
         """Raised when two Steps with the same name are added to a Stage."""
@@ -164,9 +256,24 @@ class Stage(AbstractStep):
     def execute(self):
         """Executes all Steps in this Stage which are not successful yet.
 
-        Steps are executed sequentially.
+        Steps are executed in the order in which they were provided to this
+        Stage's constructor.
         Steps whose Checkpoint is already marked as SUCCEEDED are not executed
         again.
+        If any Step raises an ExecutionFailedException, the Stage's Checkpoint
+        is set to the FAILED state, and the exception is re-raised.
+
+        Raises
+        ------
+        AlreadySuccessfulException
+            If execute() is called on a Stage which has already succeeded.
+        ExecutionFailedError
+            If any kind of exception is raised during execution of any of
+            this Stage's Steps.
+
+        Returns
+        -------
+        None
         """
 
         super().execute()
@@ -175,14 +282,18 @@ class Stage(AbstractStep):
             if step.checkpoint.state is not CheckpointState.SUCCEEDED:
                 try:
                     step.execute()
-                except BaseException as exception:
+                except self.ExecutionFailedError as exception:
                     self.checkpoint.set_failed()
                     raise self.ExecutionFailedError() from exception
 
         self.checkpoint.set_succeeded()
 
     def get_checkpoint_states(self):
-        """Returns a dict mapping each Step's name to its Checkpoint state."""
+        """Returns a dict mapping each Step's name to its Checkpoint state.
+
+        The returned dict represents the current execution state of each Step
+        in this Stage.
+        """
 
         checkpoint_states = dict()
 
