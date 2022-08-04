@@ -30,7 +30,7 @@ class CheckpointState(Enum):
 
 
 class Checkpoint:
-    """A Checkpoint represents the execution history Stage or Step.
+    """A Checkpoint represents the execution history of a Stage or Step.
 
     Parameters
     ----------
