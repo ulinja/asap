@@ -20,4 +20,5 @@ file_permissions=(
   ["/root"]="0:0:750"
   ["/root/.ssh/"]="0:0:600"
   ["/var/lib/iwd/"]="0:0:700"
+  ["/usr/local/lib/asap/asap.py"]="0:0:755"
 )

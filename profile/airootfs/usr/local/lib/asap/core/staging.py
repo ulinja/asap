@@ -9,6 +9,7 @@ form of a Checkpoint.
 
 from abc import ABC, abstractmethod
 from enum import Enum, unique
+import logging
 
 
 @unique
