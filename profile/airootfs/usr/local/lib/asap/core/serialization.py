@@ -2,15 +2,21 @@
 
 from pathlib import Path
 import json
+import logging
 
 from core.staging import Stage, CheckpointState
 
+
+path_to_checkpoint_file = Path("/var/cache/asap/checkpoints.json")
 
 class FileFormatError(RuntimeError):
     """Raised when a text file's contents have an invalid format."""
 
 
-def save_checkpoints(path_to_checkpoint_file, list_of_stages):
+def save_checkpoints(
+        list_of_stages,
+        path_to_checkpoint_file=path_to_checkpoint_file
+):
     """Saves the checkpoints of the input stages to the specified file.
 
     The output file is created if it does not exist and gets replaced if it
@@ -56,7 +62,10 @@ def save_checkpoints(path_to_checkpoint_file, list_of_stages):
         json.dump(output_file_contents, output_file, indent=2)
 
 
-def load_checkpoints(path_to_checkpoint_file, list_of_stages):
+def load_checkpoints(
+        list_of_stages,
+        path_to_checkpoint_file=path_to_checkpoint_file
+):
     """Loads the checkpoints from the specified file into the stages."""
 
     path_to_checkpoint_file = Path(path_to_checkpoint_file).expanduser().resolve()
