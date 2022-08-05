@@ -6,7 +6,7 @@ import logging
 import json
 
 from core.parser import get_argument_parser
-from core.config import load_config
+from core.config import CONFIG, load_config
 import core.serialization as sz
 
 
@@ -21,11 +21,11 @@ def main():
         level=logging.DEBUG if args.debug else logging.INFO,
     )
 
-    # load the config file
+    # load the custom config file if specified, or the default if unspecified
     if args.config:
-        CONFIG = load_config(args.config)
+        load_config(args.config)
     else:
-        CONFIG = load_config()
+        load_config()
 
     if args.subparser_name == "info":
         if args.WHAT == "checkpoints":
