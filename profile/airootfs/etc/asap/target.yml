@@ -1,5 +1,96 @@
 ---
 # This is the default target system configuration file for asap.
 
+# whether or not to use auto-partitioning
+# WARNING: auto-partitioning irreversibly wipes all data from /dev/sda
+auto_partition: no # OPTIONAL: whether auto-partitioning is enabled
+
+mirrorlist:
+  # OPTIONAL: settings for the generated mirrorlist
+  protocols:
+    # OPTIONAL: The list of protocols which pacman should use.
+    # Valid choices are: http, https, ftp
+    # To use any protocol, delete this key.
+    - https
+  countries:
+    # OPTIONAL: The list of countries from which mirrors will be used.
+    # To use mirrors from anywhere, delete this key.
+    - DE
+    - NL
+    - BE
+    - LU
+    - PL
+    - DK
+    - CZ
+    - AT
+    - CH
+    - SE
+    - "NO"
+    - FR
+    - ES
+    - ET
+    - LT
+    - IT
+    - SK
+    - SI
+    - GB
+    - US
+timezone: Europe/Berlin # MANDATORY: The system's timezone.
+keymap: de-latin1 # MANDATORY: The keyboard layout in TTYs.
+hostname: my-arch-machine # MANDATORY: The system's hostname
+domainname: example.com # OPTIONAL: The system's hostname
+user: testuser # OPTIONAL: username of a non-root user with sudo privileges
+mkinitcpio:
+  hooks:
+    # MANDATORY: the list of hooks to be added to mkinitcpio.conf
+    # NOTE: the order matters!
+    - base
+    - udev
+    - autodetect
+    - keyboard
+    - keymap
+    - modconf
+    - block
+    # - encrypt
+    - lvm2
+    - resume
+    - filesystems
+    - fsck
+locale:
+  # OPTIONAL: the locale settings
+  LANG: en_GB.UTF-8
+  LC_CTYPE: en_GB.UTF-8
+  LC_NUMERIC: en_GB.UTF-8
+  LC_TIME: en_DK.UTF-8
+  LC_COLLATE: en_GB.UTF-8
+  LC_MONETARY: de_DE.UTF-8
+  LC_MESSAGES: en_GB.UTF-8
+  LC_PAPER: de_DE.UTF-8
+  LC_NAME: en_GB.UTF-8
+  LC_ADDRESS: de_DE.UTF-8
+  LC_TELEPHONE: de_DE.UTF-8
+  LC_MEASUREMENT: de_DE.UTF-8
+  LC_IDENTIFICATION: de_DE.UTF-8
+packages:
+  # MANDATORY: The list of pacman packages to install to the new system.
+  - amd-ucode
+  - base
+  - base-devel
+  - dosfstools
+  - efibootmgr
+  - git
+  - grub
+  - linux
+  - linux-firmware
+  - linux-headers
+  - lvm2
+  - man-db
+  - man-pages
+  - neovim
+  - networkmanager
+  - ntfs-3g
+  - openssh
+  - rsync
+  - texinfo
 
 ...

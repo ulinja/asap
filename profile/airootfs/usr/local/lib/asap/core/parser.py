@@ -12,11 +12,6 @@ def get_argument_parser():
 
     # add mainparser arguments
     mainparser.add_argument(
-        "--config",
-        action="store",
-        help="Specify a custom config file to use.",
-    )
-    mainparser.add_argument(
         "--debug",
         action="store_true",
         help="Display debugging log messages.",
