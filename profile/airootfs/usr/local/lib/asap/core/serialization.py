@@ -37,9 +37,8 @@ def save_checkpoints(
 
     path_to_checkpoint_file = Path(path_to_checkpoint_file).expanduser().resolve()
     if not path_to_checkpoint_file.parent.is_dir():
-        raise NotADirectoryError(
-            f"No such directory: '{path_to_checkpoint_file.parent}'."
-        )
+        # create the directory
+        path_to_checkpoint_file.parent.mkdir(parents=True)
 
     if not isinstance(list_of_stages, list):
         raise TypeError(f"Expected a {list}.")

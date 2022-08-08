@@ -12,8 +12,8 @@ alias la="exa --long --header --group --classify --git --icons --group-directori
 alias ranger="ranger --choosedir=$HOME/.local/share/ranger/rangerdir ; cd $(cat $HOME/.local/share/ranger/rangerdir)"
 
 ## file deletion
-alias rm='rmtrash --forbid-root=ask-pass'
-alias rmdir='rmdirtrash --forbid-root=ask-pass'
+#alias rm='rmtrash --forbid-root=ask-pass'
+#alias rmdir='rmdirtrash --forbid-root=ask-pass'
 alias tls="trash-list"
 alias tem="trash-empty"
 alias shred="shred --force --remove --zero --verbose"
