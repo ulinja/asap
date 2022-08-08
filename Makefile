@@ -5,7 +5,7 @@ BUILD_DIR := ./build
 PROFILE_DIR := ./profile
 CREDENTIALS_DIR := ./credentials
 
-PACKAGE_REPO_DIR := $(TMP_DIR)/packages/pkg
+PACKAGE_REPO_DIR := $(PROFILE_DIR)/airootfs/usr/local/lib/aur-packages
 PACKAGE_REPO_DB := $(PACKAGE_REPO_DIR)/aur-packages.db.tar.gz
 PACKAGE_CACHE_DIR := $(TMP_DIR)/packages/cache
 
@@ -26,26 +26,28 @@ clean-tmp:
 	@if findmnt | grep $(TMP_DIR) 1>/dev/null; then /bin/false; else /bin/true; fi
 	@rm -rf $(TMP_DIR)
 
+# cleans the custom repository directory
+.PHONY: clean-repo-dir
+clean-repo-dir:
+	@rm -rf $(PACKAGE_REPO_DIR)
+
 # fetch and build the AUR packages, and create the custom repository
 # FIXME this works but mkarchiso cant find the packages for some reason
 .PHONY: prepare-aur-packages
-prepare-aur-packages: clean-tmp
+prepare-aur-packages: clean-tmp clean-repo-dir
 	@mkdir -p $(PACKAGE_CACHE_DIR)
 	@chown -R 1000:1000 $(PACKAGE_CACHE_DIR)
 
-	@sudo -u \#1000 git clone https://aur.archlinux.org/rmtrash.git $(PACKAGE_CACHE_DIR)/rmtrash
-	@cd $(PACKAGE_CACHE_DIR)/rmtrash; sudo -u \#1000 makepkg --syncdeps --clean --cleanbuild --force --rmdeps
+	@sudo -u \#1000 git clone https://aur.archlinux.org/paru.git $(PACKAGE_CACHE_DIR)/paru
+	@cd $(PACKAGE_CACHE_DIR)/paru; sudo -u \#1000 makepkg --syncdeps --clean --cleanbuild --force --rmdeps
 
-	@sudo -u \#1000 git clone https://aur.archlinux.org/autojump.git $(PACKAGE_CACHE_DIR)/autojump
-	@cd $(PACKAGE_CACHE_DIR)/autojump; sudo -u \#1000 makepkg --syncdeps --clean --cleanbuild --force --rmdeps
-
-	@mkdir -p $(PACKAGE_REPO_DB)
-	@repo-add $(PACKAGE_REPO_DB) $(PACKAGE_CACHE_DIR)/rmtrash/*.pkg.tar.zst
-	@repo-add $(PACKAGE_REPO_DB) $(PACKAGE_CACHE_DIR)/autojump/*.pkg.tar.zst
+	@mkdir -p $(PACKAGE_REPO_DIR)
+	@repo-add $(PACKAGE_REPO_DB) $(PACKAGE_CACHE_DIR)/paru/*.pkg.tar.zst
+	@install --group=1000 --owner=1000 -t $(PACKAGE_REPO_DIR) $(PACKAGE_CACHE_DIR)/paru/*.pkg.tar.zst
 
 # runs the archiso image build
 .PHONY: build-archiso
-build-archiso: clean embed-psk embed-sshkey prepare-aur-packages
+build-archiso: clean embed-psk embed-sshkey #prepare-aur-packages
 	@mkdir -p $(WORKING_DIR)
 	@mkarchiso -v -w $(WORKING_DIR) -o $(BUILD_DIR) $(PROFILE_DIR)
 	@rm -rf $(TMP_DIR)
