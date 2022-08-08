@@ -185,8 +185,10 @@ class Step(AbstractStep):
                 **self.executable_kwargs
             )
         except BaseException as exception:
+            # set checkpoint to FAILED state
             self.checkpoint.set_failed()
-            raise self.ExecutionFailedError() from exception
+            # re-raise exception and propagate message
+            raise self.ExecutionFailedError(str(exception)) from exception
 
         self.checkpoint.set_succeeded()
         return retval
@@ -284,8 +286,10 @@ class Stage(AbstractStep):
                 try:
                     step.execute()
                 except self.ExecutionFailedError as exception:
+                    # set checkpoint to FAILED state
                     self.checkpoint.set_failed()
-                    raise self.ExecutionFailedError() from exception
+                    # re-raise exception and propagate message
+                    raise self.ExecutionFailedError(str(exception)) from exception
 
         self.checkpoint.set_succeeded()
 
