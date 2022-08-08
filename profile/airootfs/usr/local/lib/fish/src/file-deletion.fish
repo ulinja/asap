@@ -1,13 +1,13 @@
 # Fish shell functions relating to file removal.
 # DEPENDENCIES: trash-cli rmtrash
 
-function rm --wraps rmtrash --description "Removes files"
-        rmtrash --forbid-root=ask-pass $argv
-end
+#function rm --wraps rmtrash --description "Removes files"
+#        rmtrash --forbid-root=ask-pass $argv
+#end
 
-function rmdir --wraps rmdirtrash --description "Removes directories"
-        rmdirtrash --forbid-root=ask-pass $argv
-end
+#function rmdir --wraps rmdirtrash --description "Removes directories"
+#        rmdirtrash --forbid-root=ask-pass $argv
+#end
 
 function shrz --wraps shred --description "Irrevocably overwrites the specified files with zeroes and removes them."
         # TODO add user confirmation
