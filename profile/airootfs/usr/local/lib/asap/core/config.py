@@ -1,8 +1,7 @@
 """This module handles the loading of global configuration values.
 
 The global configuration is loaded from the asap configuration file, which is
-written in yaml. Configuration values are loaded into a dict called CONFIG,
-which is in the global namespace of this module.
+written in yaml.
 """
 
 from pathlib import Path
@@ -15,12 +14,7 @@ except ImportError:
     from yaml import Loader, Dumper
 
 
-# TODO set this to a proper value
-_default_path_to_config_file = Path("/tmp/asap/target.yml")
-#_default_path_to_config_file = Path("/etc/asap/target.yml")
-
-# create the global configuration dict
-CONFIG = {}
+_default_path_to_config_file = Path("/etc/asap/target.yml")
 
 
 class InvalidConfigFileError(RuntimeError):
@@ -28,7 +22,7 @@ class InvalidConfigFileError(RuntimeError):
 
 
 def load_config(path_to_config_file=_default_path_to_config_file):
-    """Loads the specified file's contents into the global CONFIG variable.
+    """Loads the specified yaml file's contents and returns them.
 
     The specified config file must contain valid yaml syntax.
 
@@ -39,7 +33,8 @@ def load_config(path_to_config_file=_default_path_to_config_file):
 
     Returns
     -------
-    None
+    config : dict
+        A dict containing configuration values.
 
     Raises
     ------
@@ -63,4 +58,4 @@ def load_config(path_to_config_file=_default_path_to_config_file):
 
     # TODO validate config contents!
 
-    CONFIG = config
+    return config
