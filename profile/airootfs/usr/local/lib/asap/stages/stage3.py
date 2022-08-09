@@ -333,7 +333,7 @@ def set_console():
     if len(file_lines) > 0:
         logging.info("Setting console settings...")
         with open("/mnt/etc/vconsole.conf", "w") as file:
-            for line in file_lines
+            for line in file_lines:
                 file.write(line + "\n")
         logging.info("The console settings were set.")
 
