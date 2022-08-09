@@ -12,8 +12,8 @@ PACKAGE_CACHE_DIR := $(TMP_DIR)/packages/cache
 # run a full ASAP ISO build
 .PHONY: build
 build: build-archiso clean-psk clean-sshkey
-	@chown -R $(LOGNAME):$(LOGNAME) $(BUILD_DIR)
-	@chown -R $(LOGNAME):$(LOGNAME) $(PROFILE_DIR)
+	@# make sure all built or modified files are not owned by root
+	@chown -R $(shell stat --printf '%U\n' .):$(shell stat --printf '%G\n' .) $(BUILD_DIR) $(PROFILE_DIR)
 	@echo ASAP build completed!
 
 # clean previous builds
