@@ -36,7 +36,11 @@ mirrorlist:
     - GB
     - US
 timezone: Europe/Berlin # MANDATORY: The system's timezone.
-keymap: de-latin1 # MANDATORY: The keyboard layout in TTYs.
+console:
+  # OPTIONAL: TTY console settings
+  keymap: de-latin1 # OPTIONAL: console's keyboard layout
+  font: lat4a-19 # OPTIONAL: font for the console
+  #font: solar24x32 # OPTIONAL: font
 hostname: my-arch-machine # MANDATORY: The system's hostname
 domainname: example.com # OPTIONAL: The system's hostname
 user: testuser # MANDATORY: username of a non-root user with sudo privileges

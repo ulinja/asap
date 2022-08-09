@@ -294,24 +294,48 @@ def configure_locale():
     logging.info("The locales were generated.")
 
 
-def set_keymap():
-    """Sets the keymap according to the config file."""
+def set_console():
+    """Sets the keymap and consolefont according to the config file."""
 
     CONFIG = load_config()
-    if "keymap" in CONFIG:
-        keymap = CONFIG["keymap"]
-        if not isinstance(keymap, str):
-            raise InvalidConfigFileError(
-                "Config key 'keymap' must be a string."
-            )
-    else:
+    if not "console" in CONFIG:
         return
+    else:
+        console = CONFIG["console"]
+        if not isinstance(console, dict):
+            raise InvalidConfigFileError(
+                "Config value for 'console' must be a dict."
+            )
+        if "keymap" in console:
+            keymap = console["keymap"]
+            if not isinstance(keymap, str):
+                raise InvalidConfigFileError(
+                    "Value for config key 'keymap' must be a string."
+                )
+        else:
+            keymap = None
+        if "font" in console:
+            font = console["font"]
+            if not isinstance(font, str):
+                raise InvalidConfigFileError(
+                    "Value for config key 'font' must be a string."
+                )
+        else:
+            font = None
 
     # create vconsole.conf
-    logging.info("Setting keymap...")
-    with open("/mnt/etc/vconsole.conf", "w") as file:
-        file.write(f"KEYMAP={keymap}\n")
-    logging.info("The keymap was set.")
+    file_lines = []
+    if keymap is not None:
+        file_lines.append(f"KEYMAP={keymap}")
+    if font is not None:
+        file_lines.append(f"FONT={font}")
+
+    if len(file_lines) > 0:
+        logging.info("Setting console settings...")
+        with open("/mnt/etc/vconsole.conf", "w") as file:
+            for line in file_lines
+                file.write(line + "\n")
+        logging.info("The console settings were set.")
 
 
 def set_hostname():
@@ -796,7 +820,7 @@ stage = Stage(
         Step("Set the timezone", set_timezone),
         Step("Sync the hardware clock", sync_hardware_clock),
         Step("Configure locale", configure_locale),
-        Step("Set keymap", set_keymap),
+        Step("Set console settings", set_console),
         Step("Set hostname", set_hostname),
         Step("Enable DHCP", enable_network_service),
         Step("Set root password", set_root_password),

@@ -29,14 +29,22 @@ Run `reflector -h` to get a list of valid configuration values.
 
 ASAP sets the timezone using the directories under `/usr/share/zoneinfo`.
 
-## Keymap
+## Console
 
-Sets the keymap (keyboard layout) for the console on the target system.
+Sets the keymaps (keyboard layout) and/or fonts for the TTY console on the target system.
 Available keymaps can be listed with:
 
 ```sh
-find /usr/share/kbd/keymaps -name '*.map.gz' -printf '%f\n' | awk -F '.' '{print $1}' | sort
+find /usr/share/kbd/keymaps -name '*.map.gz' -printf '%f\n' | awk -F '.' '{print $1}' | sort | less
 ```
+
+Available fonts can be listed with:
+
+```sh
+find /usr/share/kbd/consolefonts -name '*.gz* -printf '%f\n' | awk -F '.' '{print $1}' | sort | less
+```
+
+and previewed on [this helpful website](https://adeverteuil.github.io/linux-console-fonts-screenshots/).
 
 ## Hostname
 
