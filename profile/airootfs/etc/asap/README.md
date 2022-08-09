@@ -41,7 +41,7 @@ find /usr/share/kbd/keymaps -name '*.map.gz' -printf '%f\n' | awk -F '.' '{print
 Available fonts can be listed with:
 
 ```sh
-find /usr/share/kbd/consolefonts -name '*.gz* -printf '%f\n' | awk -F '.' '{print $1}' | sort | less
+find /usr/share/kbd/consolefonts -name '*.gz*' -printf '%f\n' | awk -F '.' '{print $1}' | sort | less
 ```
 
 and previewed on [this helpful website](https://adeverteuil.github.io/linux-console-fonts-screenshots/).
