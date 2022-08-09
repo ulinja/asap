@@ -459,6 +459,22 @@ def create_non_root_user():
         stderr=DEVNULL,
         check=True,
     )
+    logging.info(f"The user '{username}' was created.")
+
+
+def set_non_root_user_password():
+    """Creates a non root user."""
+
+    CONFIG = load_config()
+    if "user" not in CONFIG:
+        return
+    username = CONFIG["user"]
+    if not isinstance(username, str):
+        raise InvalidConfigFileError(
+            "Config key 'user' must hold a string value."
+        )
+
+    logging.info(f"Setting password for user '{username}'...")
     # prompt for the user's password
     run(
         [
@@ -470,7 +486,7 @@ def create_non_root_user():
         stderr=sys.stderr,
         check=True,
     )
-    logging.info(f"The user '{username}' was created.")
+    logging.info(f"Password for user '{username}' was set.")
 
 
 def init_pacman_keyring_target():
@@ -826,6 +842,7 @@ stage = Stage(
         Step("Set root password", set_root_password),
         Step("Modify sudo configuration", add_sudo_config),
         Step("Create non-root user", create_non_root_user),
+        Step("Set non-root user's password", set_non_root_user_password),
         Step("Initialize pacman keyring (target)", init_pacman_keyring_target),
         Step("Install GRUB", install_grub),
         Step("Configure mkinitcpio", configure_mkinitcpio),
