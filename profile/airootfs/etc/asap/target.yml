@@ -96,5 +96,6 @@ packages:
   - openssh
   - rsync
   - texinfo
+install_paru: no # OPTIONAL whether or not to install the paru AUR helper
 
 ...

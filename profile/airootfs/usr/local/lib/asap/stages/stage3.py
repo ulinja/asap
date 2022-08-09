@@ -426,11 +426,15 @@ def add_sudo_config():
     """Adds a custom sudo configuration to /mnt/etc/sudoers.d/10-default"""
 
     logging.info("Adding sudo configuration...")
-    with open("/mnt/etc/sudoers.d/10-default", "w") as file:
+    # create file
+    path_to_sudo_config = Path("/mnt/etc/sudoers.d/10-default")
+    with open(path_to_sudo_config, "w") as file:
         file.write(
             "# Allow members of group wheel to execute any command:\n"
             "%wheel ALL=(ALL:ALL) ALL\n"
         )
+    # chmod to 'r--r-----'
+    path_to_sudo_config.chmod(0o440)
     logging.info("The sudo configuration was added.")
 
 
@@ -759,6 +763,16 @@ def install_paru():
     """Installs the paru AUR helper on the target system."""
 
     CONFIG = load_config()
+
+    if not "install_paru" in CONFIG:
+        return
+    if not isinstance(CONFIG["install_paru"], bool):
+        raise InvalidConfigFileError(
+            "Value for config key 'install_paru' must be a boolean."
+        )
+    if not CONFIG["install_paru"]:
+        return
+
     if not "user" in CONFIG:
         raise InvalidConfigFileError(
             "Key 'user' is missing from config file."
